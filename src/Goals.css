@@ -1,0 +1,80 @@
+.Goals {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  color: #747474;
+  width: 100%;
+  height: 80vh;
+}
+
+.Goals h5 {
+  margin-bottom: 20px;
+  font-size: 1.5em;
+  color: #228B22; /* Forest green */
+}
+
+.Goals form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(5, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 75vw;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  margin: auto;
+}
+
+.Goals form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 90%;
+  font-size: 1em;
+  margin: auto;
+}
+
+.Goals form button {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #228B22; /* Forest green */
+  color: white;
+  cursor: pointer;
+  margin-top: 20px;
+  font-size: 1em;
+}
+
+.Goals form button:hover {
+  background-color: #1c6f1c; /* Darker green */
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #228B22; /* Forest green */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.Goals form .input-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.Goals form .input-group svg {
+  width: 20px;
+  height: 20px;
+  color: #228B22; /* Forest green */
+}

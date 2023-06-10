@@ -1,0 +1,44 @@
+.tabs {
+  width: 100%;
+}
+
+.tab-list {
+  display: flex;
+  justify-content: space-around;
+  list-style-type: none;
+  padding: 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #555;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tab-button .tab-name {
+  margin-top: 5px;
+}
+
+.tab-button svg {
+  width: 30px;
+  height: 30px;
+}
+
+.tab-button.active {
+  border-bottom: 2px solid #228B22;
+  color: #228B22;
+  font-weight: bold;
+}
+
+.tab-content {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
