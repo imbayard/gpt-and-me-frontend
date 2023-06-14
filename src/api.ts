@@ -11,7 +11,8 @@ const URLS = {
   sentiment: '/sentiment',
   textbook_chapters: '/textbook-chapters',
   chapter_topics: '/chapter-topics',
-  topic_lesson: '/topic-lesson'
+  topic_lesson: '/topic-lesson',
+  update_study_plan: '/study-plan'
 }
 
 export async function postPost(form: Categories) {
@@ -79,6 +80,10 @@ export async function getTopicLesson(goal: string, chapter: string, studyPlan: S
     category,
     topic
   })
+}
+
+export async function updateStudyPlan(studyPlan: StudyPlan, category: string) {
+  return await makePost(URLS.update_study_plan, {studyPlan, category})
 }
 
 async function makePost(url: string, post_body: any) {

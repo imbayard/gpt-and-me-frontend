@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './TabContent.css';
-import { getChapterTopics, getTextbookChapters, getTopicLesson } from './api';
+import { getChapterTopics, getTextbookChapters, getTopicLesson, updateStudyPlan } from './api';
 import { TabContentComponentProps } from './lib/tab-util';
 import { TextbookChapter, Topic } from './models';
 import { CiCircleCheck } from 'react-icons/ci';
@@ -74,6 +74,19 @@ const TabContent = ({goal, studyPlan, category}: TabContentComponentProps) => {
     setSelectedChapter(selectedChapter === index ? -1 : index)
   };
 
+  async function handleMarkLessonRead(selectedChapter: number, selectedTopic: number) {
+    const chapter = chapters[selectedChapter]
+    const topic = chapter.topics?.[selectedTopic]
+    if(topic) {
+      // TODO: Handle error
+      topic.done = true
+      studyPlan.chapters = chapters
+      const studyPlanUpdated = await updateStudyPlan(studyPlan, category)
+      console.log(studyPlanUpdated)
+    }
+
+  }
+
   return (
     <div className='TabContent'>
       <div className="goal-container">
@@ -93,11 +106,16 @@ const TabContent = ({goal, studyPlan, category}: TabContentComponentProps) => {
       </div>
       {hasChapters() ? (chapters.map((chapter, i) => {
         const name = chapter.chapter_name
+
         return(
           <div key={i} className='chapter-enclosure'>
             <div key={`chapter-${i}`} className='chapter' onClick={() => handleChapterClick(i)}>
               <div className='chapter-name'>{i+1}. {name}</div>
-              <div className='chapter-num-chapters'>Topics Read: {chapter.num_topics_done || 0}/{chapter.num_topics || 0}</div>
+              <div className='chapter-num-chapters'> 
+                { 
+                  (!chapter.num_topics || chapter.num_topics === 0) ? 'Click to Generate Topics' : `Topics Read: ${chapter.num_topics_done}/${chapter.num_topics}`
+                }
+              </div>
               <div className='chapter-done'>{chapter.done ? <CiCircleCheck size={'25px'}/> : ''}</div>
             </div>
             <div key={`drawer-${i}`} className={`chapter-drawer ${selectedChapter === i ? 'open' : ''}`}>
@@ -110,7 +128,7 @@ const TabContent = ({goal, studyPlan, category}: TabContentComponentProps) => {
                   <div className={`topic-drawer ${selectedTopic === j ? 'open' : ''}`} key={`drawer-${i}.${j}`}>
                     <div className='lesson-tip'>Make sure to take notes (pen and paper recommended)</div>
                     <div className='lesson-content'>{lesson}</div>
-                    <div className='mark-lesson-done'>Mark Done</div>
+                    <div className='mark-lesson-done' onClick={() => handleMarkLessonRead(selectedChapter, selectedTopic)}>Mark Read</div>
                   </div>
                 </div>
               ))}
