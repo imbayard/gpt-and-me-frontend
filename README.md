@@ -4,8 +4,9 @@
 - Help the user come up with good goals
 - Give the user an easy, personalized learning pathway to understand and reach their goals
     - (DONE) Give the user the broad concept list they need to reach their goals (textbook_chapters)
-    - Help the user understand the subsections that make up each concept
-    - Teach the user about each subsection for each concept
+    - (DONE) Help the user understand the subsections that make up each concept
+    - (DONE) Teach the user about each subsection for each concept
+    - Let the user keep long term track of their lessons (which they have completed, etc)
 - Show the user how their daily sentiment has changed over time
 - Help the user make smart financial decisions
 - Give the user the ability to get advice from their role models
@@ -18,7 +19,8 @@
 # Frontend Futures
 - (DONE) Create a homepage and separate the components into modules that open modals
 - Change wording to show that these are for long-term goals especially
-- Refactor 'WorkoutTab' so that it can be generic for all categories
+- (DONE) Refactor 'WorkoutTab' so that it can be generic for all categories
+- 
 
 # Backend Futures
 - (DONE) Make prompt builder generic --> /util/prompts.js

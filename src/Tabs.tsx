@@ -15,7 +15,7 @@ const Tabs = (userProfile: UserProfile) => {
           <button
             key={i}
             onClick={() => setActiveTab(tab)}
-            className={`tab-button ${activeTab.name === tab.name ? 'active' : ''}`}
+            className={`tab-button ${activeTab.name.category === tab.name.category ? 'active' : ''}`}
           >
             {tab.icon}
             <span className="tab-name">{tab.name.category}</span>

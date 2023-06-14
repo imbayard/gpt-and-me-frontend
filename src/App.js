@@ -6,6 +6,7 @@ import './App.css'
 import { PracticePicker } from './PracticePicker';
 import { getGoals } from './api'
 import Tabs from './Tabs';
+import { GoalsHUD } from './GoalsHUD';
 
 Modal.setAppElement('#root');
 
@@ -14,6 +15,9 @@ const App = () => {
   useEffect(() => {
     const fetchGoals = async () => {
       const response = await getGoals();
+      if(!response.data) {
+        // TODO: Add error popup here
+      }
       setGoals(response.data.goals || emptyGoals)
       setName(response.data.name)
       setEmail(response.data.email)
@@ -40,7 +44,7 @@ const App = () => {
   }
 
   const [studyPlans, setStudyPlans] = useState({})
-  const [name, setName] = useState("")
+  const [name, setName] = useState("Default")
   const [email, setEmail] = useState("")
   const [goals, setGoals] = useState(testGoals);
 
@@ -71,29 +75,10 @@ const App = () => {
     }
   }
 
-  const allGoalsEmpty = !Object.values(goals).some(goal => goal.trim() !== '');
-
   return (
     <div className="App">
       <p className="welcome-message">{name}</p>
       <div className='app-body'>
-        <div className="goals-display">
-          <div className="goals-display-header">
-            <h2>Your Goals</h2>
-            <button onClick={() => openModal('goals')}>Edit</button>
-          </div>
-            {allGoalsEmpty ? (
-              <p>Add goals from the "Update Goals" tile</p>
-            ) : (
-              <>
-                <p><strong>Work: </strong>{goals.work}</p>
-                <p><strong>Workout: </strong>{goals.workout}</p>
-                <p><strong>Fun: </strong>{goals.fun}</p>
-                <p><strong>Food: </strong>{goals.food}</p>
-                <p><strong>Finance: </strong>{goals.finance}</p>
-              </>
-          )}
-        </div>
         <div className='tiles'>
           <div className="tile" onClick={() => openModal('promptResponse')}>Record A Journal Entry</div>
             <Modal style={modalStyle} isOpen={modalOpen.promptResponse} onRequestClose={() => closeModal('promptResponse')}>
@@ -111,6 +96,7 @@ const App = () => {
               <Tabs goals={goals} studyPlans={studyPlans} name={name} email={email}/>
             </Modal>
         </div>
+        <GoalsHUD goals={goals} openModal={openModal}/>
       </div>
     </div>
   )

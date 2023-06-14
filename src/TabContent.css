@@ -1,7 +1,8 @@
-.WorkoutTab {
+.TabContent {
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100%;
 }
 
 .goal-container {
@@ -11,7 +12,6 @@
   background-color: #f4f4f4;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
   max-width: 500px;
   margin: auto;
 }
@@ -27,7 +27,6 @@
   font-size: 18px;
   color: #747474;
   text-align: left;
-  font-weight: bold;
 }
 
 .prompt-to-click {
@@ -44,7 +43,7 @@
   align-items: center;
   padding: 20px;
   padding-bottom: 3px;
-  border-bottom: 2px solid #a4a4a4;
+  border-top: 2px ridge #a4a4a4;
 }
 
 .study-plan-title {
@@ -89,11 +88,12 @@
 
 .chapter-enclosure {
   width: 80%;
+  color: #707070;
 }
 
 .chapter {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: left;
   background-color: #f4f4f4;
   padding: 20px;
@@ -104,6 +104,10 @@
   margin-top: 10px;
   font-size: 18px;
   transition: all 0.5s ease;
+}
+
+.chapter-done {
+  color: #228B22;
 }
 
 .chapter:hover {
@@ -132,7 +136,7 @@
 
 .topic {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: left;
   background-color: #f4f4f4;
   padding: 15px;
@@ -143,6 +147,10 @@
   margin-top: 10px;
   font-size: 15px;
   transition: all 0.5s ease;
+}
+
+.topic-done {
+  color: #228B22;
 }
 
 .topic:hover {
@@ -167,4 +175,39 @@
   overflow: scroll;
   background-color: #f7f7f7;
   margin-top: 2%;
+}
+
+.lesson-tip {
+  font-style: italic;
+  color: #a0a0a0;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.lesson-content {
+  font-size: 18px;
+  line-height: 1.6;
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-color: #f9f9f9;
+  max-width: 600px;
+  padding: 20px;
+  margin: auto;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+.mark-lesson-done {
+  margin: auto;
+  width: 100%;
+  text-align: center;
+  margin-top: 2%;
+  transition: transform 0.5s ease;
+}
+
+.mark-lesson-done:hover {
+  transform: scale(1.1);
+  color: #228B22;
+  cursor: pointer;
 }

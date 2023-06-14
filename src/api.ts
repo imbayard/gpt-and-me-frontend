@@ -82,7 +82,7 @@ export async function getTopicLesson(goal: string, chapter: string, studyPlan: S
 }
 
 async function makePost(url: string, post_body: any) {
-  console.log(`Making request: ${post_body}`)
+  console.log(`Making request: ${JSON.stringify(post_body)}`)
   return await axios.post(`${host}${url}`, post_body)
   .then(function (response) {
     console.log(response);

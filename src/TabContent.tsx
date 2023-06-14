@@ -3,6 +3,7 @@ import './TabContent.css';
 import { getChapterTopics, getTextbookChapters, getTopicLesson } from './api';
 import { TabContentComponentProps } from './lib/tab-util';
 import { TextbookChapter, Topic } from './models';
+import { CiCircleCheck } from 'react-icons/ci';
 
 const TabContent = ({goal, studyPlan, category}: TabContentComponentProps) => {
 
@@ -77,7 +78,7 @@ const TabContent = ({goal, studyPlan, category}: TabContentComponentProps) => {
     <div className='TabContent'>
       <div className="goal-container">
         <h1 className="goal-title">Your Goal:</h1>
-        <p className="goal-text">{goal}</p>
+        <p className="goal-text">{(category).toLocaleUpperCase()}: <strong>{goal}</strong></p>
       </div>
       <div className="study-plan-header">
         <h1 className="study-plan-title">Study Plan</h1>
@@ -94,12 +95,23 @@ const TabContent = ({goal, studyPlan, category}: TabContentComponentProps) => {
         const name = chapter.chapter_name
         return(
           <div key={i} className='chapter-enclosure'>
-            <div key={`chapter-${i}`} className='chapter' onClick={() => handleChapterClick(i)}>{i+1}. {name}</div>
+            <div key={`chapter-${i}`} className='chapter' onClick={() => handleChapterClick(i)}>
+              <div className='chapter-name'>{i+1}. {name}</div>
+              <div className='chapter-num-chapters'>Topics Read: {chapter.num_topics_done || 0}/{chapter.num_topics || 0}</div>
+              <div className='chapter-done'>{chapter.done ? <CiCircleCheck size={'25px'}/> : ''}</div>
+            </div>
             <div key={`drawer-${i}`} className={`chapter-drawer ${selectedChapter === i ? 'open' : ''}`}>
               {topics && topics.map((topic, j) => (
                 <div key={`topic-enclosure${j}`}>
-                  <div className='topic' key={`topic-${j}`} onClick={() => handleTopicClick(i, j)}>{`${i+1}.${j+1} ${topic.topic_name}`}</div>
-                  <div className={`topic-drawer ${selectedTopic === j ? 'open' : ''}`} key={`drawer-${i}.${j}`}>{lesson}</div>
+                  <div className='topic' key={`topic-${j}`} onClick={() => handleTopicClick(i, j)}>
+                    {`${i+1}.${j+1} ${topic.topic_name}`}
+                    <div className='topic-done'>{topic.done ? <CiCircleCheck size={'20px'} /> : ''}</div>
+                  </div>
+                  <div className={`topic-drawer ${selectedTopic === j ? 'open' : ''}`} key={`drawer-${i}.${j}`}>
+                    <div className='lesson-tip'>Make sure to take notes (pen and paper recommended)</div>
+                    <div className='lesson-content'>{lesson}</div>
+                    <div className='mark-lesson-done'>Mark Done</div>
+                  </div>
                 </div>
               ))}
             </div>

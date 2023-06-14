@@ -1,6 +1,6 @@
 .App {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
@@ -11,35 +11,20 @@
 .welcome-message {
   background-color: none;
   width: 80vw;
-  color: #333;
+  color: #228b22;
   font-weight: 700;
   font-size: 2em;
   padding-bottom: 10px;
   text-align: center;
   margin: 0 auto;
-  margin-bottom: 20px;
-  transition: all 0.3s ease;
+  margin-bottom: 2%;
 }
-
-.subsection-message {
-  background-color: none;
-  width: 80vw;
-  color: #333;
-  font-weight: 700;
-  font-size: 1.5em;
-  padding-bottom: 10px;
-  text-align: center;
-  margin: 0 auto;
-  margin-bottom: 20px;
-  transition: all 0.3s ease;
-}
-
 
 .app-body {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: left;
-  width: 80vw;
+  width: 60vw;
   flex-direction: column;
 }
 
@@ -52,12 +37,10 @@
 .tile {
   width: 20%;
   padding: 20px;
-  color: #747474;
-  background-color: #f4f4f4;
+  color: #228b22;
   display: flex;
   align-items: center;
   cursor: pointer;
-  border-radius: 5px;
   box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
   transition: transform 0.3s ease;
   font-weight: bold;
@@ -67,47 +50,5 @@
 .tile:hover {
   transform: scale(1.05);
   box-shadow: 0px 8px 18px rgba(0,0,0,0.2);
-  color: #228b22;
-}
-
-.goals-display {
-  color: #228b22;
-  width: 50vw;
-  background-color: #f4f4f4;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 3px 8px rgba(0,0,0,0.1);
-  margin: auto;
-  margin-bottom: 2%;
-}
-
-.goals-display h2 {
-  font-size: 20px;
-}
-
-.goals-display p {
-  margin: 15px 0;
-  color: #747474;
-}
-
-.goals-display-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.goals-display-header button {
-  color: #228b22;
-  background-color: #f4f4f4;
-  border: none;
-  text-align: center;
-  text-decoration: none;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 10px;
-  transition: all 0.8s ease;
-}
-
-.goals-display-header button:hover {
-  transform: scale(1.2)
+  color: #135013;
 }

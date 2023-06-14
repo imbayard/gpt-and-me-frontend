@@ -21,12 +21,10 @@
   grid-template-columns: 1fr;
   grid-template-rows: repeat(5, 1fr);
   gap: 20px;
-  width: 100%;
+  width: 50%;
   max-width: 75vw;
-  background-color: white;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
   margin: auto;
 }
 

@@ -1,0 +1,40 @@
+.goals-display {
+  color: #228b22;
+  width: auto;
+  padding: 20px;
+  border-radius: 10px;
+  margin: auto;
+  margin-bottom: 2%;
+  margin-top: 2%;
+}
+
+.goals-display h2 {
+  font-size: 20px;
+}
+
+.goals-display p {
+  margin: 15px 0;
+  color: #747474;
+}
+
+.goals-display-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.goals-display-header button {
+  color: #228b22;
+  background-color: #f0f0f0;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.8s ease;
+}
+
+.goals-display-header button:hover {
+  transform: scale(1.2)
+}
