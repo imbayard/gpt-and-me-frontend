@@ -1,54 +1,16 @@
 .App {
+    color: #454545;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
-    justify-content: center;
-    flex-direction: column;
+    justify-content: top;
     align-items: center;
-    min-height: 100vh;
-    background-color: #f0f0f0;
-    padding: 20px;
-}
-
-.welcome-message {
-  background-color: none;
-  width: 80vw;
-  color: #228b22;
-  font-weight: 700;
-  font-size: 2em;
-  padding-bottom: 10px;
-  text-align: center;
-  margin: 0 auto;
-  margin-bottom: 2%;
+    flex-direction: column;
 }
 
 .app-body {
-  display: flex;
-  justify-content: center;
-  align-items: left;
-  width: 60vw;
-  flex-direction: column;
-}
-
-.tiles {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.tile {
-  width: 20%;
-  padding: 20px;
-  color: #228b22;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
-  font-weight: bold;
-  margin-top: 2%;
-}
-
-.tile:hover {
-  transform: scale(1.05);
-  box-shadow: 0px 8px 18px rgba(0,0,0,0.2);
-  color: #135013;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
 }

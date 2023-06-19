@@ -1,7 +1,7 @@
 export interface Categories {
   work: string,
   workout: string,
-  fun: string,
+  sanity: string,
   food: string,
   finance: string
 }
@@ -36,7 +36,7 @@ export interface Topic {
 export interface StudyPlansForProfile {
     work?: StudyPlan,
     workout?: StudyPlan,
-    fun?: StudyPlan,
+    sanity?: StudyPlan,
     food?: StudyPlan,
     finance?: StudyPlan
 }
