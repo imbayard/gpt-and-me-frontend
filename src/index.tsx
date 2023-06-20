@@ -5,6 +5,7 @@ import { App } from './App';
 import Header from './components/Header';
 import { URLS } from './lib/constants';
 import Journal from './Journal';
+import LearnSomethingComponent from './LearnSomething';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,7 +14,7 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path={URLS.JOURNAL} element={<Journal />} />
-        <Route path="/page2" element={<></>} />
+        <Route path={URLS.LEARN} element={<LearnSomethingComponent />} />
         <Route path="/page3" element={<></>} />
         <Route path="/page4" element={<></>} />
       </Routes>

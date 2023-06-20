@@ -2,10 +2,12 @@ import { Categories } from "../models"
 
 export const URLS = {
     JOURNAL: '/journal',
+    LEARN: '/learn-something'
 }
 
 export const MAIN_TILE_NAMES = {
-    JOURNAL: 'Journal'
+    JOURNAL: 'Journal',
+    LEARN: 'Learn Something'
 }
 
 export const CATEGORIES: Categories = {
