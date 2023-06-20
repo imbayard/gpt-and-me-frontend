@@ -3,6 +3,8 @@ import { Tree } from 'react-d3-tree';
 import Modal from 'react-modal';
 import { LearnSomething } from '../models';
 
+import './MindMap.css'
+
 interface MindMapProps {
   data: LearnSomething;
 }
@@ -42,7 +44,7 @@ const MindMap: React.FC<MindMapProps> = ({ data }) => {
       <Tree
         data={rootNode}
         translate={{ x: 100, y: 200 }}
-        nodeSize={{ x: 200, y: 100 }}
+        nodeSize={{ x: 150, y: 100 }}
         shouldCollapseNeighborNodes={true}
         onNodeClick={(obj) => openModal((obj as any).data.obj)}
         hasInteractiveNodes={true}

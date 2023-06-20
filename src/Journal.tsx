@@ -15,6 +15,14 @@ export default function Journal() {
         food: '',
         finance: ''
     }
+    const sampleRes: Categories = {
+        work: 'You had a great day today!',
+        workout: 'It seems like youre falling off your 2x per day. Time to get back on!',
+        sanity: 'You need to take some more time for yourself, but Im glad you have hobbies.',
+        food: 'Eating healthy today is a great start to eating healthy again tomorrow!',
+        finance: 'You restrained yourself from spending too much, well done.',
+        summary: 'A great day overall! You should be proud of yourself :)'
+    }
     const [form, setForm] = useState(emptyForm)
     const [gptResponse, setGptResponse] = useState(emptyForm)
     const [isLoading, setIsLoading] = useState(false)
@@ -62,6 +70,23 @@ export default function Journal() {
                     <button onClick={(e) => handleSubmit(e)} type="submit">Submit</button>
                 )}
             </form>
+            {(gptResponse && gptResponse !== emptyForm) ? (
+                <div className='gpt-response'>
+                    <h3>Response</h3>
+                    {Object.keys(gptResponse).map(key => {
+                        const value = gptResponse[(key as keyof Categories)]
+                        const label = `${key.charAt(0).toLocaleUpperCase()}${key.slice(1)}`
+                        return (
+                            <div className='gpt-response-row' key={key}>
+                                <p className='gpt-response-label'>{label}</p>
+                                <p className='gpt-response-value'>{value}</p>
+                            </div>
+                        )
+                    })}
+                </div>
+            ) : (
+                <></>
+            )}
         </div>
     )
 }

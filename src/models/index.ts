@@ -3,7 +3,8 @@ export interface Categories {
   workout: string,
   sanity: string,
   food: string,
-  finance: string
+  finance: string,
+  summary?: string
 }
 
 export interface LearnSomething {
