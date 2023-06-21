@@ -7,6 +7,12 @@ export interface Categories {
   summary?: string
 }
 
+export interface PracticeFilter {
+  time: number,
+  goal: string,
+  category: string
+}
+
 export interface LearnSomething {
   seed: string,
   lesson: string,

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Categories, PracticeFilter, StudyPlan } from './models';
+import { Categories, LearnSomething, PracticeFilter } from './models';
 
 const host = 'http://localhost:3028'
 
@@ -8,11 +8,7 @@ const URLS = {
   post_goals: `/post-goals`,
   get_goals: '/goals',
   pick_practice: '/pick-practice',
-  sentiment: '/sentiment',
-  textbook_chapters: '/textbook-chapters',
-  chapter_topics: '/chapter-topics',
-  topic_lesson: '/topic-lesson',
-  update_study_plan: '/study-plan'
+  learn_something: '/learn-something'
 }
 
 export async function postPost(form: Categories) {
@@ -31,59 +27,14 @@ export async function pickPractice(practice_filter: PracticeFilter) {
   return await makePost(URLS.pick_practice, practice_filter)
 }
 
-export async function getSentiment(post: Categories, goals: Categories) {
-  const toSend = {
-    work: {
-      goal: goals.work,
-      entry: post.work
-    },
-    workout: {
-      goal: goals.workout,
-      entry: post.workout
-    },
-    fun: {
-      goal: goals.fun,
-      entry: post.fun
-    },
-    food: {
-      goal: goals.food,
-      entry: post.food
-    },
-    finance: {
-      goal: goals.finance,
-      entry: post.finance
-    }
-  }
-  return await makePost(URLS.sentiment, toSend)
+export async function learnSomethingNew(seed: string): Promise<LearnSomething> {
+  const response = await makePost(URLS.learn_something, {seed})
+  return response.data as LearnSomething
 }
 
-export async function getTextbookChapters(goal: string, category: string): Promise<string[]> {
-  const response = await makePost(URLS.textbook_chapters, {goal, category})
-  return (response.data?.chapters || [])
-}
-
-export async function getChapterTopics(goal: string, chapter: string, studyPlan: StudyPlan, category: string): Promise<string[]> {
-  const response = await makePost(URLS.chapter_topics, {
-    goal,
-    chapter,
-    studyPlan,
-    category
-  })
-  return (response.data?.topics || [])
-}
-
-export async function getTopicLesson(goal: string, chapter: string, studyPlan: StudyPlan, category: string, topic: string) {
-  return await makePost(URLS.topic_lesson, {
-    goal,
-    chapter,
-    studyPlan,
-    category,
-    topic
-  })
-}
-
-export async function updateStudyPlan(studyPlan: StudyPlan, category: string) {
-  return await makePost(URLS.update_study_plan, {studyPlan, category})
+export async function getLearnSomethings(): Promise<LearnSomething[]> {
+  const response = await getRequest(`${host}${URLS.learn_something}`)
+  return response.data as LearnSomething[]
 }
 
 async function makePost(url: string, post_body: any) {

@@ -1,81 +1,43 @@
-import React, { useState } from 'react';
-import { LearnSomething } from './models';
+import React, { useEffect, useState } from 'react';
 
 import './LearnSomething.css'
-import MindMap from './components/MindMap';
 import Loader from './components/Loader';
-import { wait } from '@testing-library/user-event/dist/utils';
-
-const mockTopics = [
-  {
-    seed: "Examples",
-    lesson: "Artificial intelligence is increasingly permeating various aspects of life, revolutionizing sectors like healthcare and finance by providing groundbreaking solutions. This advanced technology is aiding in disease diagnosis, predictive analysis, and risk management. Furthermore, the concept of remote work, propelled by recent global events, has altered traditional employment paradigms, promoting flexibility and work-life integration. On a grander scale, advancements in space technology are inspiring a new generation, fueling the aspiration for interstellar exploration and the pursuit of extraterrestrial life",
-    num_topics: 0,
-    num_topics_done: 0,
-    done: true,
-    topics: []
-  },
-  {
-    seed: "Second Node",
-    lesson: "Artificial intelligence is increasingly permeating various aspects of life, revolutionizing sectors like healthcare and finance by providing groundbreaking solutions. This advanced technology is aiding in disease diagnosis, predictive analysis, and risk management. Furthermore, the concept of remote work, propelled by recent global events, has altered traditional employment paradigms, promoting flexibility and work-life integration. On a grander scale, advancements in space technology are inspiring a new generation, fueling the aspiration for interstellar exploration and the pursuit of extraterrestrial life",
-    num_topics: 0,
-    num_topics_done: 0,
-    done: false,
-    topics: []
-  }
-]
-
-const mockData: LearnSomething = {
-    seed: "Physics",
-    lesson: "Artificial intelligence is increasingly permeating various aspects of life, tion for interstellar exploration and the pursuit of extraterrestrial life",
-    num_topics: 3,
-    num_topics_done: 2,
-    done: false,
-    topics: [
-      {
-        seed: "First Law",
-        lesson: "Artificial intelligence ropelled by recent global events, has altered traditional employment paradigms, promoting flexibility and work-life integration. On a grander scale, advancements in space technology are inspiring a new generation, fueling the aspiration",
-        num_topics: 1,
-        num_topics_done: 1,
-        done: true,
-        topics: mockTopics
-      },
-      {
-        seed: "Second Law",
-        lesson: "F=ma",
-        num_topics: 0,
-        num_topics_done: 0,
-        done: false,
-        topics: []
-      },
-      {
-        seed: "Third Law",
-        lesson: "Artificial intelligence is increasingly permeating various aspects of life, revolutionizing sectors like healthcare and finance by providing groundbreaking solutions. This advanced technology is aiding in disease diagnosis, predictive analysis, and risk management. Furthermore, the concept of remote work, propelled by recent global events, has altered traditional employment paradigms, promoting flexibility and work-life integration. On a grander scale, advancements in space technology are inspiring a new generation, fueling the aspiration for interstellar exploration and the pursuit of extraterrestrial life",
-        num_topics: 0,
-        num_topics_done: 0,
-        done: false,
-        topics: mockTopics
-      }
-    ]
-  };
-  
+import TreeItem from './components/TreeItem';
+import { mock_learn_something } from './lib/mock_data';
+import { getLearnSomethings, learnSomethingNew } from './api';
 
 export default function LearnSomethingComponent() {
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [openDrawer, setOpenDrawer] = useState('');
     const [isLearnSomethingNewOpen, setIsLearnSomethingNewOpen] = useState(false)
     const [newTopic, setNewTopic] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+    const [learnSomethingArray, setLearnSomethingArray] = useState([mock_learn_something])
 
-    function handleChange(e: any) {
+    useEffect(() => {
+      async function fetchLearnSomethings() {
+        const learnSomethings = await getLearnSomethings()
+        setLearnSomethingArray(learnSomethings)
+      }
+
+      fetchLearnSomethings()
+    }, [])
+
+    useEffect(() => {
+      console.log(learnSomethingArray);
+    }, [learnSomethingArray]);
+
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
       setNewTopic(e.target.value)
     }
 
-    function handleSubmit(e: any) {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
       e.preventDefault()
 
-      console.log("Submittted")
       setIsLoading(true)
-      wait(5)
+      const response = await learnSomethingNew(newTopic)
+      console.log("Response Received", response)
+      const all = await getLearnSomethings()
+      setLearnSomethingArray(all)
       setIsLoading(false)
     }
 
@@ -84,7 +46,7 @@ export default function LearnSomethingComponent() {
         <h1 className='learn-something-header'>Your Subjects To Learn</h1>
         <button className='learn-something-new' onClick={() => setIsLearnSomethingNewOpen(!isLearnSomethingNewOpen)}>Learn Something New</button>
         <div className={`learn-drawer ${isLearnSomethingNewOpen ? 'open' : ''}`}>
-          <form>
+          <form onSubmit={(e) => handleSubmit(e)}>
             <label>
                 <p>What Do You Want To Learn?</p>
                 <input 
@@ -98,14 +60,32 @@ export default function LearnSomethingComponent() {
             {isLoading ? (
                     <Loader message={'Getting Feedback...'}/>
                 ) : (
-                    <button onClick={(e) => handleSubmit(e)} type="submit">Submit</button>
+                    <button type="submit">Submit</button>
                 )}
           </form>
         </div>
-        <button className="open-button" onClick={() => setIsDrawerOpen(!isDrawerOpen)}>{mockData.seed}</button>
-        <div className={`drawer ${isDrawerOpen ? 'open' : ''}`}>
-          <MindMap data={mockData} />
-        </div>
+        {learnSomethingArray.map(learn_something => {
+          return (
+            <>
+              <button 
+                className="open-button" 
+                onClick={() => {
+                  if (openDrawer === learn_something.seed) {
+                    setOpenDrawer(''); // if clicked drawer is already open, close it
+                  } else {
+                    setOpenDrawer(learn_something.seed); // else, open the clicked drawer
+                  }
+                }}>
+                {learn_something.seed}
+              </button>
+              <div 
+                key={learn_something.seed.replace('/\\s/g', '')} 
+                className={`drawer ${openDrawer === learn_something.seed ? 'open' : ''}`}>
+                <TreeItem node={learn_something} level={0}/>
+              </div>
+            </>
+          )
+        })}
       </div>
     );
 }

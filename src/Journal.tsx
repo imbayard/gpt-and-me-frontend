@@ -24,7 +24,7 @@ export default function Journal() {
         summary: 'A great day overall! You should be proud of yourself :)'
     }
     const [form, setForm] = useState(emptyForm)
-    const [gptResponse, setGptResponse] = useState(emptyForm)
+    const [gptResponse, setGptResponse] = useState(undefined)
     const [isLoading, setIsLoading] = useState(false)
 
     const handleChange = (e: any) => {
