@@ -8,7 +8,8 @@ const URLS = {
   post_goals: `/post-goals`,
   get_goals: '/goals',
   pick_practice: '/pick-practice',
-  learn_something: '/learn-something'
+  learn_something: '/learn-something',
+  child_learn_something: '/child-ls'
 }
 
 export async function postPost(form: Categories) {
@@ -35,6 +36,10 @@ export async function learnSomethingNew(seed: string): Promise<LearnSomething> {
 export async function getLearnSomethings(): Promise<LearnSomething[]> {
   const response = await getRequest(`${host}${URLS.learn_something}`)
   return response.data as LearnSomething[]
+}
+
+export async function generateChildLearnSOmething(seed: string, id: string): Promise<boolean> {
+  return await makePost(URLS.child_learn_something, {seed, id}) as boolean
 }
 
 async function makePost(url: string, post_body: any) {

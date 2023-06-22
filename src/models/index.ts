@@ -14,6 +14,7 @@ export interface PracticeFilter {
 }
 
 export interface LearnSomething {
+  _id?: string,
   seed: string,
   lesson: string,
   topics: LearnSomething[]

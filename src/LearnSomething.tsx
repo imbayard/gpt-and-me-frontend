@@ -64,7 +64,7 @@ export default function LearnSomethingComponent() {
                 )}
           </form>
         </div>
-        {learnSomethingArray.map(learn_something => {
+        {learnSomethingArray ? learnSomethingArray.map(learn_something => {
           return (
             <>
               <button 
@@ -81,11 +81,13 @@ export default function LearnSomethingComponent() {
               <div 
                 key={learn_something.seed.replace('/\\s/g', '')} 
                 className={`drawer ${openDrawer === learn_something.seed ? 'open' : ''}`}>
-                <TreeItem node={learn_something} level={0}/>
+                <TreeItem setLearnSomethings={(ls) => setLearnSomethingArray(ls)} node={learn_something} level={0} rootId={learn_something._id || ''}/>
               </div>
             </>
           )
-        })}
+        }) : (
+          <h3 style={{color: '#454545'}}>You don't have any subjects yet. Click "Learn Something New" above.</h3>
+        )}
       </div>
     );
 }
