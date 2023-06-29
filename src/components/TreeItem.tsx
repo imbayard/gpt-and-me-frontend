@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './TreeItem.css';
 import { LearnSomething } from '../models';
 import { generateChildLearnSOmething, getLearnSomethings } from '../api';
+import Loader from './Loader';
 
 const TreeItem: React.FC<{ 
     node: LearnSomething; 
@@ -11,15 +12,18 @@ const TreeItem: React.FC<{
 }> = ({ node, level, rootId, setLearnSomethings }) => {
 
     async function handleGenerateSeed(child: string) {
+        setIsLoadingNewSeed(true)
         console.log(child, rootId)
         const didSucceed = await generateChildLearnSOmething(child, rootId)
         if(didSucceed) {
             const ls = await getLearnSomethings()
             setLearnSomethings(ls)
         }
+        setIsLoadingNewSeed(false)
     }
 
     const [openNode, setOpenNode] = useState('')
+    const [isLoadingNewSeed, setIsLoadingNewSeed] = useState(false)
 
     return (
         <div className='tree-item' style={{ paddingLeft: `${(level + 1) * 20}px` }}>
@@ -32,10 +36,11 @@ const TreeItem: React.FC<{
                         <div className='tree-item-wrapper'>
                             <TreeItem node={childNode} level={level} rootId={rootId} setLearnSomethings={(ls) => setLearnSomethings(ls)}/>
                             {childNode.lesson ? <></> : 
-                            <button 
+                            !isLoadingNewSeed ? 
+                            (<button 
                                 className='generate-seed-button'
                                 onClick={() => handleGenerateSeed(childNode.seed)}>Keep Digging!
-                            </button>}
+                            </button>) : <Loader message='Generating Lesson...'/>}
                         </div>
                     </div>
                 </div>
