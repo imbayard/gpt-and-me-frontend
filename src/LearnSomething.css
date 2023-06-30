@@ -14,6 +14,14 @@
   padding: 20px;
 }
 
+.learn-something-li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .learn-something-new {
   padding: 10px;
   border-radius: 5px;
@@ -21,6 +29,7 @@
   background-color: #ffffff;
   border: none;
   transition: all 0.2s ease;
+  margin-top: 2%;
 }
 
 .learn-something-new:hover {
@@ -118,4 +127,33 @@
 .learn-drawer.open {
   padding: 20px;
   height: 10vh;
+}
+
+.delete-button {
+  display: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 2px rgba(255, 0, 0, 0.466);
+  transition: all 0.3s ease;
+  margin: auto;
+  float: right;
+  color: #DEDEDE;
+  padding: 10px;
+}
+
+.delete-button:hover {
+  box-shadow: 0px 2px 4px rgba(0,0,0,0.4);
+  background-color: rgba(255, 0, 0, 0.466);
+  color: white;
+}
+
+.open-button:hover .delete-button {
+  display: block;
+}
+
+.open-button p {
+  width: 50%;
+  float: left;
 }

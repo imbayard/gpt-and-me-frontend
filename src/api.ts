@@ -9,7 +9,7 @@ const URLS = {
   get_goals: '/goals',
   pick_practice: '/pick-practice',
   learn_something: '/learn-something',
-  child_learn_something: '/child-ls'
+  child_learn_something: '/child-ls',
 }
 
 export async function postPost(form: Categories) {
@@ -40,6 +40,23 @@ export async function getLearnSomethings(): Promise<LearnSomething[]> {
 
 export async function generateChildLearnSOmething(seed: string, id: string): Promise<boolean> {
   return await makePost(URLS.child_learn_something, {seed, id}) as boolean
+}
+
+export async function deleteRootLearnSomething(id: string): Promise<boolean> {
+  return await deleteRequest(URLS.learn_something, {id})
+}
+ 
+async function deleteRequest(url: string, body: any) {
+  console.log(`Making request: ${JSON.stringify(body)}`)
+  return await axios.delete(`${host}${url}`, {data: body})
+  .then(function (response) {
+    console.log(response);
+    return response.data
+  })
+  .catch(function (error) {
+    console.log(error);
+    return error
+  });
 }
 
 async function makePost(url: string, post_body: any) {

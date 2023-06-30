@@ -9,7 +9,8 @@ const TreeItem: React.FC<{
     rootId: string;
     level: number;
     setLearnSomethings: React.Dispatch<React.SetStateAction<LearnSomething[]>>
-}> = ({ node, level, rootId, setLearnSomethings }) => {
+    isRoot: boolean;
+}> = ({ node, level, rootId, setLearnSomethings, isRoot }) => {
 
     async function handleGenerateSeed(child: string) {
         setIsLoadingNewSeed(true)
@@ -34,7 +35,7 @@ const TreeItem: React.FC<{
                     <p className='child-name' onClick={() => setOpenNode(childNode.seed === openNode ? '' : childNode.seed)}>{childNode.seed}</p>
                     <div className={`tree-drawer ${openNode === childNode.seed ? 'open' : ''}`}>
                         <div className='tree-item-wrapper'>
-                            <TreeItem node={childNode} level={level} rootId={rootId} setLearnSomethings={(ls) => setLearnSomethings(ls)}/>
+                            <TreeItem isRoot={false} node={childNode} level={level} rootId={rootId} setLearnSomethings={(ls) => setLearnSomethings(ls)}/>
                             {childNode.lesson ? <></> : 
                             !isLoadingNewSeed ? 
                             (<button 
