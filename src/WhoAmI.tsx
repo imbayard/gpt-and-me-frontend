@@ -47,11 +47,12 @@ export const WhoAmI: React.FC = () => {
     e.preventDefault()
     console.log(formData)
     // Perform further actions with the form data, such as saving it to a database
-    await submitWhoAmI({
+    const userSummaryFetched = await submitWhoAmI({
       questions: formData,
       isComplete: false,
       email: 'beton@bu.edu',
     })
+    setUserSummary(userSummaryFetched)
     setHasChanges(false)
   }
 

@@ -13,6 +13,7 @@ const URLS = {
   who_am_i: '/who-am-i',
   who_am_i_fetch: '/who-am-i/fetch',
   user_sumamry: '/user-summary',
+  user_summary_poem: '/user-summary/poem',
 }
 
 export async function postPost(form: Categories) {
@@ -65,6 +66,15 @@ export async function getWhoAmI(email: string) {
 export async function getUserSummary(email: string) {
   const response = await makePost(URLS.user_sumamry, { email })
   return response.data
+}
+
+export async function getUserSummaryPoem(email: string) {
+  try {
+    const response = await makePost(URLS.user_summary_poem, { email })
+    return response.data
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 async function deleteRequest(url: string, body: any) {
