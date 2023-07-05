@@ -12,7 +12,7 @@ export function DailyPoem() {
     async function fetchPoem() {
       setIsLoading(true)
       const poem = await getUserSummaryPoem('beton@bu.edu')
-      setPoem(poem)
+      setPoem(poem || 'No poem...')
       setIsLoading(false)
     }
     fetchPoem()

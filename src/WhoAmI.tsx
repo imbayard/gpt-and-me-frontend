@@ -3,6 +3,7 @@ import { questions } from './lib/who_am_i_questions'
 import './WhoAmI.css'
 import { Question } from './models'
 import { getUserSummary, getWhoAmI, submitWhoAmI } from './api'
+import { BigText } from './components/BigText'
 
 export const WhoAmI: React.FC = () => {
   const [formData, setFormData] = useState<Question[]>(questions)
@@ -19,14 +20,6 @@ export const WhoAmI: React.FC = () => {
       return updatedData
     })
     setHasChanges(true)
-  }
-
-  const wrapWordsWithSpans = (text: string) => {
-    return text.split('.').map((word, index) => (
-      <span key={index} className="user-summary-word">
-        {word + '.'}
-      </span>
-    ))
   }
 
   useEffect(() => {
@@ -58,12 +51,7 @@ export const WhoAmI: React.FC = () => {
 
   return (
     <div className="form-container">
-      {userSummary && (
-        <div className="user-summary">
-          <h3>Your Summary</h3>
-          {wrapWordsWithSpans(userSummary)}
-        </div>
-      )}
+      {userSummary && <BigText header="User Summary" body={userSummary} />}
       <form onSubmit={handleSubmit}>
         <h3>Your Questionnaire</h3>
         {hasChanges && <button type="submit">Save Changes</button>}
