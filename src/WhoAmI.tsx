@@ -4,6 +4,7 @@ import './WhoAmI.css'
 import { Question } from './models'
 import { getUserSummary, getWhoAmI, submitWhoAmI } from './api'
 import { BigText } from './components/BigText'
+import { QandAForm } from './components/QandAForm'
 
 export const WhoAmI: React.FC = () => {
   const [formData, setFormData] = useState<Question[]>(questions)
@@ -52,22 +53,13 @@ export const WhoAmI: React.FC = () => {
   return (
     <div className="form-container">
       {userSummary && <BigText header="User Summary" body={userSummary} />}
-      <form onSubmit={handleSubmit}>
-        <h3>Your Questionnaire</h3>
-        {hasChanges && <button type="submit">Save Changes</button>}
-        {questions.map((questionObj: Question, index: number) => (
-          <div key={index}>
-            <label htmlFor={`question-${index}`}>{questionObj.question}</label>
-            <input
-              type="text"
-              id={`question-${index}`}
-              value={formData.find((item) => item.qid === index)?.value || ''}
-              onChange={(e) => handleChange(e, index)}
-            />
-          </div>
-        ))}
-        {hasChanges && <button type="submit">Save Changes</button>}
-      </form>
+      <QandAForm
+        questions={formData}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        title={'Questionnaire'}
+        hasChanges={hasChanges}
+      />
     </div>
   )
 }

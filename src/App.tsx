@@ -12,7 +12,7 @@ export function App() {
         <MainTile title={MAIN_TILE_NAMES.JOURNAL} page={URLS.JOURNAL} />
         <MainTile title={MAIN_TILE_NAMES.LEARN} page={URLS.LEARN} />
         <MainTile title={MAIN_TILE_NAMES.WHO} page={URLS.WHO} />
-        <MainTile title="Page 4" page="/page4" />
+        <MainTile title={MAIN_TILE_NAMES.SWOT} page={URLS.SWOT} />
       </div>
     </div>
   )

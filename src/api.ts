@@ -1,5 +1,12 @@
 import axios from 'axios'
-import { Categories, LearnSomething, PracticeFilter, WhoAmI } from './models'
+import {
+  Categories,
+  LearnSomething,
+  PracticeFilter,
+  Question,
+  SWOTTypeString,
+  WhoAmI,
+} from './models'
 
 const host = 'http://localhost:3028'
 
@@ -75,6 +82,13 @@ export async function getUserSummaryPoem(email: string) {
   } catch (err) {
     console.log(err)
   }
+}
+
+export async function getSWOTResponse(
+  type: string,
+  arg1: Question[]
+): Promise<SWOTTypeString> {
+  throw new Error('Function not implemented.')
 }
 
 async function deleteRequest(url: string, body: any) {

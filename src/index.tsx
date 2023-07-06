@@ -7,6 +7,7 @@ import { URLS } from './lib/constants'
 import Journal from './Journal'
 import LearnSomethingComponent from './LearnSomething'
 import { WhoAmI } from './WhoAmI'
+import { SWOT } from './SWOT'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -17,7 +18,7 @@ ReactDOM.render(
         <Route path={URLS.JOURNAL} element={<Journal />} />
         <Route path={URLS.LEARN} element={<LearnSomethingComponent />} />
         <Route path={URLS.WHO} element={<WhoAmI />} />
-        <Route path="/page4" element={<></>} />
+        <Route path={URLS.SWOT} element={<SWOT />} />
       </Routes>
     </Router>
   </React.StrictMode>,
