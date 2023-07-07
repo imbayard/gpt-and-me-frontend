@@ -59,6 +59,7 @@ export const WhoAmI: React.FC = () => {
         handleSubmit={handleSubmit}
         title={'Questionnaire'}
         hasChanges={hasChanges}
+        visible={true}
       />
     </div>
   )

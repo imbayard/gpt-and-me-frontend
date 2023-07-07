@@ -2,7 +2,7 @@ form label {
   display: block;
   margin-bottom: 10px;
   font-size: 20px;
-  color: #2a403b;
+  color: #30413d;
 }
 
 form input[type='text'] {
@@ -43,12 +43,19 @@ form button[type='submit']:hover {
 
 form {
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
-  padding: 20px;
   width: 80%;
   margin: auto;
-  min-height: 80vh;
   margin-bottom: 2%;
   margin-top: 2%;
   border-radius: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+}
+
+.form.open {
+  max-height: 80vh;
+  overflow-y: scroll;
+  padding: 20px;
 }

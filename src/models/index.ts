@@ -37,25 +37,12 @@ export interface Question {
   type?: string
 }
 
-export interface SWOTQuestions {
-  strengths: Question[]
-  weaknesses: Question[]
-  opportunities: Question[]
-  threats: Question[]
-}
-
 export type SWOTType = 'strengths' | 'weaknesses' | 'opportunities' | 'threats'
 
-export interface SWOTTypeBoolean {
-  strengths?: boolean
-  weaknesses?: boolean
-  opportunities?: boolean
-  threats?: boolean
-}
-
-export interface SWOTTypeString {
-  strengths?: string
-  weaknesses?: string
-  opportunities?: string
-  threats?: string
+export interface SWOTObj<T> {
+  email?: string
+  strengths?: T
+  weaknesses?: T
+  opportunities?: T
+  threats?: T
 }

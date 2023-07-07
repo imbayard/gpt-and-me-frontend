@@ -9,6 +9,7 @@ interface QandAFormProps {
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void
   hasChanges: boolean
   title: string
+  visible: boolean
 }
 
 export const QandAForm: React.FC<QandAFormProps> = ({
@@ -17,6 +18,7 @@ export const QandAForm: React.FC<QandAFormProps> = ({
   handleSubmit,
   hasChanges,
   title,
+  visible,
 }) => {
   const [formData, setFormData] = useState<Question[]>(questions)
 
@@ -25,7 +27,7 @@ export const QandAForm: React.FC<QandAFormProps> = ({
   }, [questions])
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={`form ${visible ? 'open' : ''}`}>
       <h3>{title}</h3>
       {questions.length > 10 && hasChanges && (
         <button type="submit">Save Changes</button>

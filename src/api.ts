@@ -4,7 +4,9 @@ import {
   LearnSomething,
   PracticeFilter,
   Question,
-  SWOTTypeString,
+  SWOTObj,
+  SWOTQuestions,
+  SWOTType,
   WhoAmI,
 } from './models'
 
@@ -21,6 +23,8 @@ const URLS = {
   who_am_i_fetch: '/who-am-i/fetch',
   user_sumamry: '/user-summary',
   user_summary_poem: '/user-summary/poem',
+  swot_analysis: '/swot/analysis',
+  swot_fetch: '/swot/fetch',
 }
 
 export async function postPost(form: Categories) {
@@ -84,11 +88,25 @@ export async function getUserSummaryPoem(email: string) {
   }
 }
 
-export async function getSWOTResponse(
-  type: string,
-  arg1: Question[]
-): Promise<SWOTTypeString> {
-  throw new Error('Function not implemented.')
+export async function performSWOTAnalysis(
+  type: SWOTType,
+  questions: Question[]
+): Promise<boolean> {
+  const response = await makePost(URLS.swot_analysis, { type, questions })
+  if (response.data && response.data[type]) {
+    if (response.data[type] === 'Updated successfully') {
+      return true
+    }
+  }
+  return false
+}
+
+export async function getSWOTAnalysisAndQuestions(email: string) {
+  const response = await makePost(URLS.swot_fetch, { email })
+  return response.data as {
+    analysis: SWOTObj<string>
+    inputs: SWOTQuestions
+  }
 }
 
 async function deleteRequest(url: string, body: any) {
