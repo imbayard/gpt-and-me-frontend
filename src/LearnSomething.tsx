@@ -125,7 +125,9 @@ export default function LearnSomethingComponent() {
           {isLoading ? (
             <Loader message={'Getting Feedback...'} />
           ) : (
-            <button type="submit">Submit</button>
+            <button className="learn-drawer-button" type="submit">
+              Submit
+            </button>
           )}
         </form>
       </div>

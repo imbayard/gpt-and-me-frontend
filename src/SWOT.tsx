@@ -57,13 +57,13 @@ export function SWOT() {
     type: SWOTType
   ) => {
     // Find the index of the question changed
-    const index = answers[type].findIndex((q: Question) => {
+    const index = questions[type].findIndex((q: Question) => {
       return q.qid === qid
     })
 
     if (index !== -1) {
       // Make a copy of the questions array for the specific type
-      const updatedQuestions = [...answers[type]]
+      const updatedQuestions = [...(answers[type] || [])]
 
       // Update the answer's value in the copied array
       updatedQuestions[index] = {
@@ -123,7 +123,10 @@ export function SWOT() {
               }}
             >
               {responses[type] && (
-                <BigText header="" body={responses[type] || ''} />
+                <BigText
+                  header={type.charAt(0).toUpperCase() + type.slice(1)}
+                  body={responses[type] || ''}
+                />
               )}
             </div>
             <QandAForm
