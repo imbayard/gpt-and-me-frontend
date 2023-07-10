@@ -164,3 +164,25 @@
   width: 50%;
   float: left;
 }
+
+@media screen and (max-width: 768px) {
+  .drawer,
+  .learn-drawer {
+    width: 90vw;
+  }
+
+  .open-button {
+    width: 80vw;
+    font-size: 16px;
+    padding: 15px;
+  }
+
+  .learn-something-header {
+    font-size: 20px;
+    padding: 10px;
+  }
+
+  .learn-drawer label {
+    width: 85%;
+  }
+}

@@ -5,6 +5,7 @@ export const URLS = {
   LEARN: '/learn-something',
   WHO: '/who-am-i',
   SWOT: '/swot',
+  GOALS: '/goal-mgr',
 }
 
 export const MAIN_TILE_NAMES = {
@@ -12,6 +13,7 @@ export const MAIN_TILE_NAMES = {
   LEARN: 'Learn Something',
   WHO: 'Who Am I?',
   SWOT: 'SWOT Analysis',
+  GOALS: 'Goal Manager',
 }
 
 export const CATEGORIES: Categories = {

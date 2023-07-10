@@ -8,6 +8,7 @@ import Journal from './Journal'
 import LearnSomethingComponent from './LearnSomething'
 import { WhoAmI } from './WhoAmI'
 import { SWOT } from './SWOT'
+import { GoalMgr } from './GoalMgr'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -19,6 +20,7 @@ ReactDOM.render(
         <Route path={URLS.LEARN} element={<LearnSomethingComponent />} />
         <Route path={URLS.WHO} element={<WhoAmI />} />
         <Route path={URLS.SWOT} element={<SWOT />} />
+        <Route path={URLS.GOALS} element={<GoalMgr />} />
       </Routes>
     </Router>
   </React.StrictMode>,

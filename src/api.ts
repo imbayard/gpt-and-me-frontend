@@ -5,7 +5,6 @@ import {
   PracticeFilter,
   Question,
   SWOTObj,
-  SWOTQuestions,
   SWOTType,
   WhoAmI,
 } from './models'
@@ -25,6 +24,8 @@ const URLS = {
   user_summary_poem: '/user-summary/poem',
   swot_analysis: '/swot/analysis',
   swot_fetch: '/swot/fetch',
+  goal_tip_generate: '/goal-tip/generate',
+  goal_tip_fetch: '/goal-tip/fetch',
 }
 
 export async function postPost(form: Categories) {
@@ -105,8 +106,21 @@ export async function getSWOTAnalysisAndQuestions(email: string) {
   const response = await makePost(URLS.swot_fetch, { email })
   return response.data as {
     analysis: SWOTObj<string>
-    inputs: SWOTQuestions
+    inputs: SWOTObj<Question[]>
   }
+}
+
+export async function generateGoalTip(email: string) {
+  const response = await makePost(URLS.goal_tip_generate, { email })
+  return response.data as {
+    goal_tip: string
+    id: string
+  }
+}
+
+export async function getGoalTip(email: string) {
+  const response = await makePost(URLS.goal_tip_fetch, { email })
+  return response?.data?.tip || ('' as string)
 }
 
 async function deleteRequest(url: string, body: any) {

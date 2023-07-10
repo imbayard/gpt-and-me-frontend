@@ -1,0 +1,26 @@
+.goal-mgr {
+  width: 75vw;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.gen-goal-tip-button {
+  font-size: 20px;
+  color: white;
+  border-radius: 5px;
+  padding: 1%;
+  margin: auto;
+  background-color: rgba(15, 112, 93, 0.6);
+  border: none;
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  cursor: pointer;
+}
+
+.gen-goal-tip-button:hover {
+  box-shadow: 0px 0px 6px rgba(15, 112, 93, 0.24);
+  transform: scale(1.05);
+  background-color: white;
+  color: rgba(15, 112, 93, 0.6);
+}

@@ -8,11 +8,12 @@
 }
 
 .app-body {
+  background-color: #fafafa;
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   gap: 2%;
-  max-width: 90%;
   padding: 2%;
 }
