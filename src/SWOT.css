@@ -1,0 +1,23 @@
+.SWOT {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.SorWorOorT-lol {
+  display: flex;
+  flex-direction: column;
+}
+
+.SorWorOorT-lol div .big-text {
+  font-size: 15px;
+  text-align: left;
+  width: 75%;
+  margin: auto;
+  box-shadow: 0px 0px 0px;
+  margin-top: 2%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.big-text-wrapper {
+  cursor: pointer;
+}

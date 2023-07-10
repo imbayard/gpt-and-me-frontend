@@ -1,49 +1,48 @@
 export interface Categories {
-  work: string,
-  workout: string,
-  fun: string,
-  food: string,
+  work: string
+  workout: string
+  sanity: string
+  food: string
   finance: string
+  summary?: string
 }
 
 export interface PracticeFilter {
-  time: number,
-  goal: string,
+  time: number
+  goal: string
   category: string
 }
 
-export interface StudyPlan {
-    chapters: TextbookChapter[]
-    num_chapters_done: number
-    num_chapters: number
-    done: boolean
+export interface LearnSomething {
+  _id?: string
+  seed: string
+  lesson: string
+  topics: LearnSomething[]
+  num_topics: number
+  num_topics_done: number
+  done: boolean
 }
 
-export interface TextbookChapter {
-    chapter_name: string
-    topics?: Topic[]
-    num_topics_done?: number
-    num_topics?: number
-    done?: boolean
+export interface WhoAmI {
+  _id?: string
+  questions: Question[]
+  isComplete: boolean
+  email: string
 }
 
-export interface Topic {
-    topic_name: string
-    lesson?: string
-    done?: boolean
+export interface Question {
+  question: string
+  qid: number
+  value: string
+  type?: string
 }
 
-export interface StudyPlansForProfile {
-    work?: StudyPlan,
-    workout?: StudyPlan,
-    fun?: StudyPlan,
-    food?: StudyPlan,
-    finance?: StudyPlan
-}
+export type SWOTType = 'strengths' | 'weaknesses' | 'opportunities' | 'threats'
 
-export interface UserProfile {
-  name: string,
-  email: string,
-  goals: Categories,
-  studyPlans?: StudyPlansForProfile
+export interface SWOTObj<T> {
+  email?: string
+  strengths?: T
+  weaknesses?: T
+  opportunities?: T
+  threats?: T
 }

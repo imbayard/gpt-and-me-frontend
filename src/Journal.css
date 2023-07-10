@@ -1,0 +1,100 @@
+.journal-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  align-items: center;
+  padding: 20px;
+  min-height: 100vh;
+  background-color: #ffffff;
+  font-family: 'Arial', sans-serif;
+  color: #454545;
+}
+
+.journal-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  padding: 20px;
+  max-height: 100vh;
+}
+
+.journal-form label {
+  display: grid;
+  grid-template-columns: 25% 75%;
+  margin-bottom: 20px;
+}
+
+.journal-form p {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.journal-form input {
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.journal-form input:focus {
+  outline: none;
+  box-shadow: 0px 0px 8px #2bf27175;
+  transform: scale(1.05);
+}
+
+.journal-form button {
+  padding: 10px;
+  color: white;
+  background-color: #2bf27175;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.journal-form button:hover {
+  background-color: #2bf271;
+}
+
+.gpt-response {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 2%;
+}
+
+.gpt-response h3 {
+  text-align: center;
+  width: 100%;
+}
+
+.gpt-response-row {
+  display: grid;
+  grid-template-columns: 25% 75%;
+  transition: all 0.1s ease-in-out;
+  padding: 5px;
+  font-size: 15px;
+  border-radius: 5px;
+}
+
+.gpt-response-row:hover {
+  box-shadow: 0px 0px 8px #2bf27175;
+  transform: scale(1.05);
+}
+
+.gpt-response-label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.gpt-response-value {
+  line-height: 1.5em;
+}

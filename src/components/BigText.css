@@ -1,0 +1,38 @@
+.big-text {
+  width: 100%;
+  font-size: 25px;
+  margin-top: 4%;
+  background-color: #fefefe;
+  border-radius: 10px;
+  padding: 1%;
+  padding-top: 0;
+  padding-bottom: 0;
+  text-align: left;
+  margin-bottom: 4%;
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  line-height: 1.5em;
+  max-height: 50vh;
+  overflow-y: scroll;
+}
+
+.big-text:hover {
+  transform: scale(1.08);
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5);
+}
+
+.big-text-word {
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out,
+    box-shadow 1s ease-in-out;
+  color: #555555;
+  border-radius: 10px;
+}
+
+.big-text-word:hover {
+  color: black;
+  background-color: #16a08410;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
+}
+
+.big-text div {
+  padding-top: 0;
+}

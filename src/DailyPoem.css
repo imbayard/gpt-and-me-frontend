@@ -1,0 +1,15 @@
+.daily-poem {
+  width: 75vw;
+  margin: 0 auto;
+}
+
+.daily-poem div div {
+  font-style: italic;
+  text-align: center;
+  width: 75%;
+  margin: 0 auto;
+  padding: 5%;
+  padding-bottom: 0;
+  padding-top: 0px;
+  font-size: 20px;
+}
