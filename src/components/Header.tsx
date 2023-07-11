@@ -1,19 +1,13 @@
-import React from 'react';
-import './Header.css';
-import { useNavigate } from 'react-router-dom';
+import React from 'react'
+import './Header.css'
+import MainTile from './MainTile'
 
 const Header = () => {
-    const navigate = useNavigate()
-
-    function handleNav(path: string) {
-        navigate(path)
-    }
-
-    return (
-        <header className="app-header">
-            <h1 onClick={() => handleNav('/')}>Bayard</h1>
-        </header>
-    );
+  return (
+    <header className="app-header">
+      <MainTile title="Bayard" page="/" isHeader={true} />
+    </header>
+  )
 }
 
-export default Header;
+export default Header

@@ -28,13 +28,20 @@ export function SWOT() {
 
       const newResponses: SWOTObj<string> = {}
       const newAnswers: SWOTObj<Question[]> = {}
+      let isQAOpen_new: SWOTObj<boolean> = {
+        strengths: true,
+        opportunities: true,
+        threats: true,
+        weaknesses: true,
+      }
       Object.keys(analysis).forEach((key) => {
         const realkey = key as keyof SWOTObj<string>
         if (analysis[realkey] && key !== 'email') {
           newResponses[realkey] = analysis[realkey]
-          setIsQAOpen({ ...isQAOpen, [realkey]: false })
+          isQAOpen_new = { ...isQAOpen_new, [realkey]: false }
         }
       })
+      setIsQAOpen(isQAOpen_new)
       Object.keys(inputs).forEach((key) => {
         const realkey = key as keyof SWOTObj<Question[]>
         if (key !== 'email') {
