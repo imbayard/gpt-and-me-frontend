@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import './LearnSomething.css'
 import Loader from './components/Loader'
-import TreeItem from './components/TreeItem'
 import { mock_learn_something } from './lib/mock_data'
 import {
   deleteRootLearnSomething,
   getLearnSomethings,
   learnSomethingNew,
 } from './api'
+import { URLS } from './lib/constants'
 
 export default function LearnSomethingComponent() {
-  const [openDrawer, setOpenDrawer] = useState('')
   const [isLearnSomethingNewOpen, setIsLearnSomethingNewOpen] = useState(false)
   const [newTopic, setNewTopic] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [learnSomethingArray, setLearnSomethingArray] = useState([
     mock_learn_something,
   ])
+  const history = useNavigate()
 
   useEffect(() => {
     async function fetchLearnSomethings() {
@@ -64,11 +65,7 @@ export default function LearnSomethingComponent() {
               <div
                 className="open-button"
                 onClick={() => {
-                  if (openDrawer === learn_something.seed) {
-                    setOpenDrawer('') // if clicked drawer is already open, close it
-                  } else {
-                    setOpenDrawer(learn_something.seed) // else, open the clicked drawer
-                  }
+                  history(`${URLS.LEARN}/${learn_something._id}`)
                 }}
               >
                 <p>{learn_something.seed}</p>
@@ -81,20 +78,6 @@ export default function LearnSomethingComponent() {
                 >
                   Delete
                 </button>
-              </div>
-              <div
-                key={learn_something.seed.replace('/\\s/g', '')}
-                className={`drawer ${
-                  openDrawer === learn_something.seed ? 'open' : ''
-                }`}
-              >
-                <TreeItem
-                  isRoot={true}
-                  setLearnSomethings={(ls) => setLearnSomethingArray(ls)}
-                  node={learn_something}
-                  level={0}
-                  rootId={learn_something._id || ''}
-                />
               </div>
             </div>
           )

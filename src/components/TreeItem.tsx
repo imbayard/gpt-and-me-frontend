@@ -1,73 +1,99 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './TreeItem.css'
 import { LearnSomething } from '../models'
 import { generateChildLearnSOmething, getLearnSomethings } from '../api'
 import Loader from './Loader'
+import { BigText } from './BigText'
+import { empty_learn_something } from '../lib/constants'
 
 const TreeItem: React.FC<{
   node: LearnSomething
   rootId: string
-  level: number
-  setLearnSomethings: React.Dispatch<React.SetStateAction<LearnSomething[]>>
-  isRoot: boolean
-}> = ({ node, level, rootId, setLearnSomethings, isRoot }) => {
+  setLearnSomething: React.Dispatch<React.SetStateAction<LearnSomething>>
+}> = ({ node, rootId, setLearnSomething }) => {
   async function handleGenerateSeed(child: string) {
     setIsLoadingNewSeed(true)
     console.log(child, rootId)
     const didSucceed = await generateChildLearnSOmething(child, rootId)
     if (didSucceed) {
       const ls = await getLearnSomethings()
-      setLearnSomethings(ls)
+      const root =
+        ls.find((root) => root._id === rootId) || empty_learn_something
+      console.log(root)
+      setLearnSomething(root)
     }
     setIsLoadingNewSeed(false)
   }
 
-  const [openNode, setOpenNode] = useState('')
+  const [openChild, setOpenChild] = useState<LearnSomething | undefined>(
+    undefined
+  )
+  const expandingDivRef = useRef<HTMLDivElement>(null)
+  const [isExpanded, setIsExpanded] = useState(false)
   const [isLoadingNewSeed, setIsLoadingNewSeed] = useState(false)
 
+  useEffect(() => {
+    if (isExpanded && expandingDivRef.current !== null) {
+      expandingDivRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [isExpanded])
+
+  function KeepDigging(node: LearnSomething) {
+    return node.lesson ? (
+      <BigText header="" body={node.lesson} />
+    ) : !isLoadingNewSeed ? (
+      <button
+        className="generate-seed-button"
+        onClick={() => handleGenerateSeed(node.seed)}
+      >
+        Keep Digging!
+      </button>
+    ) : (
+      <Loader message="Generating Lesson..." />
+    )
+  }
+
+  function handleOpen(child: LearnSomething) {
+    const conditional = openChild && child.seed === openChild.seed
+    setOpenChild(conditional ? undefined : child)
+    setIsExpanded(conditional ? false : true)
+  }
+
   return (
-    <div className="tree-item" style={{ paddingLeft: `${(level + 1) * 20}px` }}>
-      <h3>{node.seed}</h3>
-      <p className="tree-lesson">{node.lesson}</p>
-      {node.topics.map((childNode) => (
-        <div className="tree-child" key={childNode.seed.replace('/\\s/g', '')}>
-          <p
-            className="child-name"
-            onClick={() =>
-              setOpenNode(childNode.seed === openNode ? '' : childNode.seed)
-            }
-          >
-            {childNode.seed}
-          </p>
-          <div
-            className={`tree-drawer ${
-              openNode === childNode.seed ? 'open' : ''
-            }`}
-          >
-            <div className="tree-item-wrapper">
-              <TreeItem
-                isRoot={false}
-                node={childNode}
-                level={level}
-                rootId={rootId}
-                setLearnSomethings={(ls) => setLearnSomethings(ls)}
-              />
-              {childNode.lesson ? (
-                <></>
-              ) : !isLoadingNewSeed ? (
-                <button
-                  className="generate-seed-button"
-                  onClick={() => handleGenerateSeed(childNode.seed)}
-                >
-                  Keep Digging!
-                </button>
-              ) : (
-                <Loader message="Generating Lesson..." />
-              )}
-            </div>
-          </div>
+    <div className="tree-item">
+      <h3 className="tree-seed">{node.seed}</h3>
+      {KeepDigging(node)}
+      <>
+        <div className="tree-child-tabs">
+          {node.topics.map((child) => {
+            return (
+              <div
+                key={child.seed}
+                onClick={() => {
+                  handleOpen(child)
+                }}
+                className={`tree-child-tab${
+                  openChild && child.seed === openChild.seed ? '-open' : ''
+                }`}
+              >
+                {child.seed}
+              </div>
+            )
+          })}
         </div>
-      ))}
+        {openChild && (
+          <div className="tree-child" ref={expandingDivRef}>
+            <TreeItem
+              node={
+                node.topics.find((child) => child.seed === openChild.seed) ||
+                empty_learn_something
+              }
+              rootId={rootId}
+              setLearnSomething={(ls) => setLearnSomething(ls)}
+            />
+          </div>
+        )}
+      </>
     </div>
   )
 }
