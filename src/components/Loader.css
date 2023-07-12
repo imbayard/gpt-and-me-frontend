@@ -16,6 +16,25 @@
   animation: spin 2s linear infinite;
 }
 
+.loader-button {
+  font-size: 20px;
+  color: rgba(15, 112, 93, 0.6);
+  border-radius: 5px;
+  padding: 1%;
+  margin: auto;
+  margin-top: 2%;
+  border: 1px solid rgba(15, 112, 93, 0.3);
+  background-color: white;
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  cursor: pointer;
+}
+
+.loader-button:hover {
+  transform: scale(1.05);
+  background-color: rgba(15, 112, 93, 0.6);
+  color: white;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);

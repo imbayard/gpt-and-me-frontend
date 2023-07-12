@@ -1,9 +1,11 @@
 .goal-mgr {
   width: 75vw;
+  padding: 2%;
   margin: auto;
   display: flex;
   justify-content: center;
   flex-direction: column;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .gen-goal-tip-button {
@@ -12,6 +14,7 @@
   border-radius: 5px;
   padding: 1%;
   margin: auto;
+  margin-top: 2%;
   background-color: rgba(15, 112, 93, 0.6);
   border: none;
   transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -27,16 +30,25 @@
 
 .goal-suggestions {
   display: flex;
+  width: 50%;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
+  border-right: 1px solid rgba(0, 0, 0, 0.3);
+  min-height: 75vh;
 }
 
 .goal {
+  max-width: 25vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   margin-top: 2%;
   border-radius: 10px;
-  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
-  max-width: 25vw;
   padding: 2%;
+  width: 100%;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
 }
 
 .goal:hover {
@@ -45,4 +57,40 @@
   background-color: white;
   color: rgba(15, 112, 93, 0.6);
   cursor: pointer;
+}
+
+.goal-card {
+  border-radius: 10px;
+  padding: 2%;
+  width: 100%;
+}
+
+.goal-actions {
+  width: 100%;
+  padding-top: 0;
+  display: flex;
+  justify-content: space-between;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.goal-actions.open {
+  max-height: 50px;
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.goal-mgr-body {
+  display: flex;
+}
+
+.my-goals {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 75vh;
 }

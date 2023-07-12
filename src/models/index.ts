@@ -46,3 +46,15 @@ export interface SWOTObj<T> {
   opportunities?: T
   threats?: T
 }
+
+export interface Milestone {
+  title: string
+  target_date?: typeof Date
+  reason?: string
+  done?: boolean
+}
+
+export interface Goal extends Milestone {
+  _id?: string
+  milestones: Milestone[]
+}

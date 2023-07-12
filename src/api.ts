@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {
   Categories,
+  Goal,
   LearnSomething,
   PracticeFilter,
   Question,
@@ -13,8 +14,6 @@ const host = 'http://localhost:3028'
 
 const URLS = {
   post_post: `/post-post`,
-  post_goals: `/post-goals`,
-  get_goals: '/goals',
   pick_practice: '/pick-practice',
   learn_something: '/learn-something',
   child_learn_something: '/child-ls',
@@ -26,18 +25,12 @@ const URLS = {
   swot_fetch: '/swot/fetch',
   goal_tip_generate: '/goal-tip/generate',
   goal_tip_fetch: '/goal-tip/fetch',
+  goal: '/goal',
+  fetch_goals: '/goal/fetch',
 }
 
 export async function postPost(form: Categories) {
   return await makePost(URLS.post_post, form)
-}
-
-export async function postGoals(form: Categories) {
-  return await makePost(URLS.post_goals, form)
-}
-
-export async function getGoals() {
-  return await getRequest(`${host}${URLS.get_goals}`)
 }
 
 export async function pickPractice(practice_filter: PracticeFilter) {
@@ -121,6 +114,21 @@ export async function generateGoalTip(email: string) {
 export async function getGoalTip(email: string) {
   const response = await makePost(URLS.goal_tip_fetch, { email })
   return response?.data?.tip || ('' as string)
+}
+
+export async function addNewGoal(goals: Question[]) {
+  const goal_name = goals[0].value
+  const response = await makePost(URLS.goal, { goal: { title: goal_name } })
+  return response?.data
+}
+
+export async function getGoals(email: string) {
+  const response = await makePost(URLS.fetch_goals, { email })
+  return response?.data as Goal[]
+}
+
+export async function deleteGoal(id: string) {
+  return await deleteRequest(URLS.goal, { id })
 }
 
 async function deleteRequest(url: string, body: any) {
