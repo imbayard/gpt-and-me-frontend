@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { QandAForm } from './QandAForm'
 import { LoaderButton } from './Loader'
 import { Goal as GoalModel } from '../models'
 import { addNewGoal, deleteGoal, getGoals } from '../api'
+
+import './Goal.css'
 
 interface GoalComponentProps {
   goal: string
@@ -33,6 +34,7 @@ export function Goal({
       await deleteGoal(id)
       const goals = await getGoals('beton@bu.edu')
       setGoals(goals)
+      setIsDeleting(false)
     }
   }
 
@@ -77,5 +79,17 @@ export function GoalHeaderWithSubtext({
       <h2>{header}</h2>
       <p style={{ fontStyle: 'italic', marginTop: '0' }}>{subtext}</p>
     </>
+  )
+}
+
+export function JustGoals({ goals }: { goals: GoalModel[] }) {
+  return (
+    <div className="goals">
+      {goals.map((goal) => (
+        <div className="just-goal" key={goal._id}>
+          {goal.title}
+        </div>
+      ))}
+    </div>
   )
 }

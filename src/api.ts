@@ -1,9 +1,7 @@
 import axios from 'axios'
 import {
-  Categories,
   Goal,
   LearnSomething,
-  PracticeFilter,
   Question,
   SWOTObj,
   SWOTType,
@@ -13,8 +11,6 @@ import {
 const host = 'http://localhost:3028'
 
 const URLS = {
-  post_post: `/post-post`,
-  pick_practice: '/pick-practice',
   learn_something: '/learn-something',
   child_learn_something: '/child-ls',
   who_am_i: '/who-am-i',
@@ -27,16 +23,8 @@ const URLS = {
   goal_tip_fetch: '/goal-tip/fetch',
   goal: '/goal',
   fetch_goals: '/goal/fetch',
+  journal: '/journal',
 }
-
-export async function postPost(form: Categories) {
-  return await makePost(URLS.post_post, form)
-}
-
-export async function pickPractice(practice_filter: PracticeFilter) {
-  return await makePost(URLS.pick_practice, practice_filter)
-}
-
 export async function learnSomethingNew(seed: string): Promise<LearnSomething> {
   const response = await makePost(URLS.learn_something, { seed })
   return response.data as LearnSomething
@@ -129,6 +117,11 @@ export async function getGoals(email: string) {
 
 export async function deleteGoal(id: string) {
   return await deleteRequest(URLS.goal, { id })
+}
+
+export async function submitJournalEntry(entry: string, email: string) {
+  const response = await makePost(URLS.journal, { entry, email })
+  return response.data as string
 }
 
 async function deleteRequest(url: string, body: any) {

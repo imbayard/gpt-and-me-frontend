@@ -2,7 +2,7 @@ import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react'
 
 import './GoalMgr.css'
 import { addNewGoal, generateGoalTip, getGoalTip, getGoals } from './api'
-import Loader, { LoaderButton } from './components/Loader'
+import { LoaderButton } from './components/Loader'
 
 import { mockGoals } from './lib/mock_data'
 import { URLS } from './lib/constants'
@@ -57,7 +57,7 @@ export function GoalMgr() {
     e.preventDefault()
     console.log(newGoalForm)
     setIsLoadingGoals(true)
-    const res = await addNewGoal(newGoalForm)
+    await addNewGoal(newGoalForm)
     const all_goals = await getGoals('beton@bu.edu')
     setGoals(all_goals)
     setIsLoadingGoals(false)
@@ -112,7 +112,7 @@ export function GoalMgr() {
         </div>
         <div className="my-goals">
           <GoalHeaderWithSubtext
-            header="My Goals"
+            header="My Daily Goals"
             subtext="Set Goals By Clicking on GPT Suggestions or Manually Inputting"
           />
           {goals &&
