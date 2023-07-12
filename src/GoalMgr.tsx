@@ -26,11 +26,23 @@ export function GoalMgr() {
     setIsLoadingNewGoalTip(false)
   }
 
+  function separateByCarrot(goals: string | undefined) {
+    return goals ? (
+      goals.split('^').map((goal) => (
+        <div className="goal" key={goal}>
+          {goal}
+        </div>
+      ))
+    ) : (
+      <></>
+    )
+  }
+
   return (
     <div className="goal-mgr">
-      {goal_tip && goal_tip.goal_tip && (
-        <BigText header="Goal Tip" body={goal_tip.goal_tip} />
-      )}
+      <div className="goal-suggestions">
+        {goal_tip && goal_tip.goal_tip && separateByCarrot(goal_tip.goal_tip)}
+      </div>
       {!isLoadingNewGoalTip ? (
         <button
           onClick={() => handleGenerateGoalTip()}
