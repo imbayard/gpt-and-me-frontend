@@ -4,7 +4,7 @@ import { Question } from '../models'
 import './QandAForm.css'
 
 interface QandAFormProps {
-  questions: Question[]
+  questions: Question[] | undefined
   handleChange: (e: ChangeEvent<HTMLInputElement>, qid: number) => void
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void
   hasChanges: boolean
@@ -20,14 +20,17 @@ export const QandAForm: React.FC<QandAFormProps> = ({
   title,
   visible,
 }) => {
-  const [formData, setFormData] = useState<Question[]>(questions)
+  const [formData, setFormData] = useState<Question[]>(questions || [])
 
   useEffect(() => {
-    setFormData(questions)
+    setFormData(questions || [])
   }, [questions])
 
-  return (
-    <form onSubmit={handleSubmit} className={`form ${visible ? 'open' : ''}`}>
+  return questions ? (
+    <form
+      onSubmit={handleSubmit}
+      className={`qa-form ${visible ? 'open' : ''}`}
+    >
       <h3>{title}</h3>
       {questions.length > 10 && hasChanges && (
         <button type="submit">Save Changes</button>
@@ -45,5 +48,7 @@ export const QandAForm: React.FC<QandAFormProps> = ({
       ))}
       {hasChanges && <button type="submit">Save Changes</button>}
     </form>
+  ) : (
+    <></>
   )
 }

@@ -1,4 +1,4 @@
-import { Question, SWOTQuestions, SWOTType } from '../models'
+import { Question, SWOTObj, SWOTType } from '../models'
 
 const questionConfig: Record<SWOTType, string[]> = {
   strengths: [
@@ -36,12 +36,12 @@ function mapQstoQuestion(type: string, qs: string[]): Question[] {
   }))
 }
 
-const questions: SWOTQuestions = Object.entries(questionConfig).reduce(
+const questions: SWOTObj<Question[]> = Object.entries(questionConfig).reduce(
   (acc, [type, qs]) => ({
     ...acc,
     [type]: mapQstoQuestion(type, qs),
   }),
-  {} as SWOTQuestions
+  {} as SWOTObj<Question[]>
 )
 
 export default questions

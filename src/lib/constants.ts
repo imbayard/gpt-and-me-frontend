@@ -11,7 +11,7 @@ export const URLS = {
 export const MAIN_TILE_NAMES = {
   JOURNAL: 'Journal',
   LEARN: 'Learn Something',
-  WHO: 'Who Am I?',
+  WHO: 'My Summary',
   SWOT: 'SWOT Analysis',
   GOALS: 'Goal Manager',
 }

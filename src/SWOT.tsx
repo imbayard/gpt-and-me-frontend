@@ -27,7 +27,12 @@ export function SWOT() {
       )
 
       const newResponses: SWOTObj<string> = {}
-      const newAnswers: SWOTObj<Question[]> = {}
+      const newAnswers: SWOTObj<Question[]> = {
+        strengths: [],
+        opportunities: [],
+        threats: [],
+        weaknesses: [],
+      }
       let isQAOpen_new: SWOTObj<boolean> = {
         strengths: true,
         opportunities: true,
@@ -42,14 +47,11 @@ export function SWOT() {
         }
       })
       setIsQAOpen(isQAOpen_new)
-      Object.keys(inputs).forEach((key) => {
-        const realkey = key as keyof SWOTObj<Question[]>
-        if (key !== 'email') {
-          if (inputs[realkey]?.[0]) {
-            newAnswers[realkey] = inputs[realkey]
-          } else {
-            newAnswers[realkey] = questions[realkey]
-          }
+      swotTypes.forEach((key) => {
+        if (inputs[key]?.[0]) {
+          newAnswers[key] = inputs[key]
+        } else {
+          newAnswers[key] = questions[key]
         }
       })
       setAnswers(newAnswers as SWOTObj<Question[]>)
@@ -64,9 +66,10 @@ export function SWOT() {
     type: SWOTType
   ) => {
     // Find the index of the question changed
-    const index = questions[type].findIndex((q: Question) => {
-      return q.qid === qid
-    })
+    const index =
+      questions[type]?.findIndex((q: Question) => {
+        return q.qid === qid
+      }) || 0
 
     if (index !== -1) {
       // Make a copy of the questions array for the specific type
