@@ -42,7 +42,7 @@ export const questions = [
     value: '',
   },
   {
-    question: 'Do you set goals for yourself? What are some goals you have?',
+    question: 'Do you set habits for yourself? What are some habits you have?',
     qid: 8,
     value: '',
   },

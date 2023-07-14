@@ -1,6 +1,6 @@
 export const questions = [
   {
-    question: 'Goal Name',
+    question: 'Habit Name',
     qid: 0,
     value: '',
   },

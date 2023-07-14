@@ -1,4 +1,4 @@
-import { Goal, LearnSomething } from '../models'
+import { Habit, LearnSomething } from '../models'
 
 const mockTopics = [
   {
@@ -58,7 +58,7 @@ export const mock_learn_something: LearnSomething = {
   ],
 }
 
-export const mockGoals: Goal[] = [
+export const mockHabits: Habit[] = [
   {
     title: 'Daily Exercise',
     milestones: [

@@ -9,7 +9,7 @@ export interface Categories {
 
 export interface PracticeFilter {
   time: number
-  goal: string
+  habit: string
   category: string
 }
 
@@ -54,7 +54,7 @@ export interface Milestone {
   done?: boolean
 }
 
-export interface Goal extends Milestone {
+export interface Habit extends Milestone {
   _id?: string
   milestones: Milestone[]
 }

@@ -7,7 +7,7 @@ import Journal from './Journal'
 import LearnSomethingComponent from './LearnSomething'
 import { WhoAmI } from './WhoAmI'
 import { SWOT } from './SWOT'
-import { GoalMgr } from './GoalMgr'
+import { HabitMgr } from './HabitMgr'
 import { LearnSomethingRoot } from './LearnSomethingRoot'
 import SignIn from './SignIn'
 import { container } from './lib/container'
@@ -92,7 +92,7 @@ export default function AppRoutes() {
               />
               <Route path={URLS.WHO} element={<WhoAmI />} />
               <Route path={URLS.SWOT} element={<SWOT />} />
-              <Route path={URLS.GOALS} element={<GoalMgr />} />
+              <Route path={URLS.GOALS} element={<HabitMgr />} />
             </>
           ) : (
             <>

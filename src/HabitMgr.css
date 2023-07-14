@@ -1,4 +1,4 @@
-.goal-mgr {
+.habit-mgr {
   width: 75vw;
   padding: 2%;
   margin: auto;
@@ -8,7 +8,7 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.gen-goal-tip-button {
+.gen-habit-tip-button {
   font-size: 20px;
   color: white;
   border-radius: 5px;
@@ -21,14 +21,14 @@
   cursor: pointer;
 }
 
-.gen-goal-tip-button:hover {
+.gen-habit-tip-button:hover {
   box-shadow: 0px 0px 6px rgba(15, 112, 93, 0.24);
   transform: scale(1.05);
   background-color: white;
   color: rgba(15, 112, 93, 0.6);
 }
 
-.goal-suggestions {
+.habit-suggestions {
   display: flex;
   width: 50%;
   justify-content: center;
@@ -38,7 +38,7 @@
   min-height: 75vh;
 }
 
-.goal {
+.habit {
   max-width: 25vw;
   display: flex;
   flex-direction: column;
@@ -51,7 +51,7 @@
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
 }
 
-.goal:hover {
+.habit:hover {
   box-shadow: 0px 0px 6px rgba(15, 112, 93, 0.24);
   transform: scale(1.05);
   background-color: white;
@@ -59,13 +59,13 @@
   cursor: pointer;
 }
 
-.goal-card {
+.habit-card {
   border-radius: 10px;
   padding: 2%;
   width: 100%;
 }
 
-.goal-actions {
+.habit-actions {
   width: 100%;
   padding-top: 0;
   display: flex;
@@ -77,16 +77,16 @@
   transition: max-height 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.goal-actions.open {
+.habit-actions.open {
   max-height: 50px;
   border-top: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.goal-mgr-body {
+.habit-mgr-body {
   display: flex;
 }
 
-.my-goals {
+.my-habits {
   display: flex;
   width: 50%;
   justify-content: center;

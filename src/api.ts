@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {
-  Goal,
+  Habit,
   LearnSomething,
   Question,
   SWOTObj,
@@ -19,10 +19,10 @@ const URLS = {
   user_summary_poem: '/user-summary/poem',
   swot_analysis: '/swot/analysis',
   swot_fetch: '/swot/fetch',
-  goal_tip_generate: '/goal-tip/generate',
-  goal_tip_fetch: '/goal-tip/fetch',
-  goal: '/goal',
-  fetch_goals: '/goal/fetch',
+  habit_tip_generate: '/habit-tip/generate',
+  habit_tip_fetch: '/habit-tip/fetch',
+  habit: '/habit',
+  fetch_habits: '/habit/fetch',
   journal: '/journal',
 }
 export async function learnSomethingNew(seed: string): Promise<LearnSomething> {
@@ -91,32 +91,32 @@ export async function getSWOTAnalysisAndQuestions(email: string) {
   }
 }
 
-export async function generateGoalTip(email: string) {
-  const response = await makePost(URLS.goal_tip_generate, { email })
+export async function generateHabitTip(email: string) {
+  const response = await makePost(URLS.habit_tip_generate, { email })
   return response.data as {
-    goal_tip: string
+    habit_tip: string
     id: string
   }
 }
 
-export async function getGoalTip(email: string) {
-  const response = await makePost(URLS.goal_tip_fetch, { email })
+export async function getHabitTip(email: string) {
+  const response = await makePost(URLS.habit_tip_fetch, { email })
   return response?.data?.tip || ('' as string)
 }
 
-export async function addNewGoal(goals: Question[]) {
-  const goal_name = goals[0].value
-  const response = await makePost(URLS.goal, { goal: { title: goal_name } })
+export async function addNewHabit(habits: Question[]) {
+  const habit_name = habits[0].value
+  const response = await makePost(URLS.habit, { habit: { title: habit_name } })
   return response?.data
 }
 
-export async function getGoals(email: string) {
-  const response = await makePost(URLS.fetch_goals, { email })
-  return response?.data as Goal[]
+export async function getHabits(email: string) {
+  const response = await makePost(URLS.fetch_habits, { email })
+  return response?.data as Habit[]
 }
 
-export async function deleteGoal(id: string) {
-  return await deleteRequest(URLS.goal, { id })
+export async function deleteHabit(id: string) {
+  return await deleteRequest(URLS.habit, { id })
 }
 
 export async function submitJournalEntry(entry: string, email: string) {

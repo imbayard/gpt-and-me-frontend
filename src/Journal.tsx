@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 
 import './Journal.css'
-import { getGoals, submitJournalEntry } from './api'
-import { Goal } from './models'
-import { JustGoals } from './components/Goal'
+import { getHabits, submitJournalEntry } from './api'
+import { Habit } from './models'
+import { JustHabits } from './components/Habit'
 import { URLS } from './lib/constants'
 import { LoaderButton } from './components/Loader'
 import { BigText } from './components/BigText'
 
 export default function Journal() {
-  const [goals, setGoals] = useState<Goal[]>([])
+  const [habits, setHabits] = useState<Habit[]>([])
   const [journalEntry, setJournalEntry] = useState('')
   const [hasChanged, setHasChanged] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -17,8 +17,8 @@ export default function Journal() {
 
   useEffect(() => {
     async function loadPage() {
-      const fetched_goals = await getGoals('beton@bu.edu')
-      setGoals(fetched_goals)
+      const fetched_habits = await getHabits('beton@bu.edu')
+      setHabits(fetched_habits)
     }
     loadPage()
   }, [])
@@ -38,17 +38,17 @@ export default function Journal() {
 
   return (
     <div className="journal-container">
-      {goals.length > 0 ? (
-        <div className="goal-container">
+      {habits.length > 0 ? (
+        <div className="habit-container">
           <h3>
-            Your Daily Goals (<a href={URLS.GOALS}>Edit</a>)
+            Your Daily Habits (<a href={URLS.GOALS}>Edit</a>)
           </h3>
-          <JustGoals goals={goals} />
+          <JustHabits habits={habits} />
         </div>
       ) : (
         <p>
-          You don't have any goals.{' '}
-          <a href={URLS.GOALS}>Set goals in the Goal Manager</a>
+          You don't have any habits.{' '}
+          <a href={URLS.GOALS}>Set habits in the Habit Manager</a>
         </p>
       )}
       <div className="input-wrapper">
