@@ -5,7 +5,7 @@ import { UserContext } from '../AppRoutes'
 import { LoaderButton } from './Loader'
 
 const Header = () => {
-  const { userId, email, name, handleLogout } = useContext(UserContext)
+  const { name, handleLogout } = useContext(UserContext)
 
   async function handleUserLogOut() {
     await handleLogout()

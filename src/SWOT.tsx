@@ -20,6 +20,12 @@ export function SWOT() {
     threats: true,
   })
 
+  const swotTypes: SWOTType[] = [
+    'strengths',
+    'weaknesses',
+    'opportunities',
+    'threats',
+  ]
   useEffect(() => {
     async function loadPage() {
       const { analysis, inputs } = await getSWOTAnalysisAndQuestions(
@@ -112,13 +118,6 @@ export function SWOT() {
     setHasChanges({ ...hasChanges, [type]: false })
     setIsLoading({ ...isLoading, [type]: false })
   }
-
-  const swotTypes: SWOTType[] = [
-    'strengths',
-    'weaknesses',
-    'opportunities',
-    'threats',
-  ]
 
   return (
     <div className="SWOT">

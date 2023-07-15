@@ -77,7 +77,7 @@ export function HabitMgr() {
     return habits ? (
       habits.split('^').map((habit) => {
         return (
-          habit != '' && (
+          habit !== '' && (
             <Habit
               habit={habit}
               handleOpenHabit={(habit, isTip) => handleOpenHabit(habit, isTip)}
