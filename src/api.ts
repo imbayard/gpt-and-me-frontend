@@ -134,6 +134,7 @@ async function deleteRequest(url: string, body: any) {
   return await axios
     .delete(`${host}${url}`, {
       data: body,
+      withCredentials: true,
       httpsAgent: {
         rejectUnauthorized: false,
       },
@@ -152,6 +153,7 @@ async function makePost(url: string, post_body: any) {
   console.log(`Making request: ${JSON.stringify(post_body)}`)
   return await axios
     .post(`${host}${url}`, post_body, {
+      withCredentials: true,
       httpsAgent: {
         rejectUnauthorized: false,
       },
@@ -169,6 +171,7 @@ async function makePost(url: string, post_body: any) {
 async function getRequest(url: string) {
   return await axios
     .get(url, {
+      withCredentials: true,
       httpsAgent: {
         rejectUnauthorized: false,
       },
