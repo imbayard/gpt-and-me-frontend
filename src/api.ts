@@ -132,7 +132,12 @@ export async function submitJournalEntry(entry: string, email: string) {
 async function deleteRequest(url: string, body: any) {
   console.log(`Making request: ${JSON.stringify(body)}`)
   return await axios
-    .delete(`${host}${url}`, { data: body })
+    .delete(`${host}${url}`, {
+      data: body,
+      httpsAgent: {
+        rejectUnauthorized: false,
+      },
+    })
     .then(function (response) {
       console.log(response)
       return response.data
@@ -146,7 +151,11 @@ async function deleteRequest(url: string, body: any) {
 async function makePost(url: string, post_body: any) {
   console.log(`Making request: ${JSON.stringify(post_body)}`)
   return await axios
-    .post(`${host}${url}`, post_body)
+    .post(`${host}${url}`, post_body, {
+      httpsAgent: {
+        rejectUnauthorized: false,
+      },
+    })
     .then(function (response) {
       console.log(response)
       return response
@@ -159,7 +168,11 @@ async function makePost(url: string, post_body: any) {
 
 async function getRequest(url: string) {
   return await axios
-    .get(url)
+    .get(url, {
+      httpsAgent: {
+        rejectUnauthorized: false,
+      },
+    })
     .then(function (response) {
       console.log(response)
       return response

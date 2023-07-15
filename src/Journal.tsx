@@ -38,7 +38,7 @@ export default function Journal() {
 
   return (
     <div className="journal-container">
-      {habits.length > 0 ? (
+      {habits && habits.length > 0 ? (
         <div className="habit-container">
           <h3>
             Your Daily Habits (<a href={URLS.GOALS}>Edit</a>)
