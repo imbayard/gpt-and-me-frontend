@@ -31,3 +31,11 @@
 .big-text div {
   padding-top: 0;
 }
+
+@media only screen and (max-width: 399px) {
+  .big-text {
+    width: 75vw;
+    font-size: smaller;
+    line-height: 2em;
+  }
+}

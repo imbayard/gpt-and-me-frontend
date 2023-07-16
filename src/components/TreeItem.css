@@ -94,3 +94,15 @@
   min-height: 50vh;
   width: 100%;
 }
+
+@media only screen and (max-width: 399px) {
+  .tree-child-tab {
+    font-size: 10px;
+    overflow: scroll;
+  }
+
+  .tree-child-tab-open {
+    font-size: 12px;
+    overflow-y: scroll;
+  }
+}

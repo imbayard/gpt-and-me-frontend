@@ -76,8 +76,13 @@ export function HabitHeaderWithSubtext({
 }) {
   return (
     <>
-      <h2>{header}</h2>
-      <p style={{ fontStyle: 'italic', marginTop: '0' }}>{subtext}</p>
+      <h2 className="habit-header">{header}</h2>
+      <p
+        className="habit-subtext"
+        style={{ fontStyle: 'italic', marginTop: '0' }}
+      >
+        {subtext}
+      </p>
     </>
   )
 }

@@ -165,3 +165,11 @@
   width: 50%;
   float: left;
 }
+
+@media only screen and (max-width: 399px) {
+  .open-button {
+    padding: 1%;
+    width: 80vw;
+    padding-left: 2%;
+  }
+}

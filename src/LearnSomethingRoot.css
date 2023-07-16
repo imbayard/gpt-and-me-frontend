@@ -16,7 +16,7 @@
 }
 
 .learn-something-root-navigate-back {
-  width: 5%;
+  width: 20%;
   display: block;
   margin: 20px auto;
   padding: 10px;
@@ -84,4 +84,24 @@
 .learn-something-child {
   min-height: 50vh;
   width: 80%;
+}
+
+@media only screen and (max-width: 399px) {
+  .learn-something-root {
+    width: 95vw;
+    justify-content: space-between;
+  }
+  .learn-something-root-topic {
+    text-align: left;
+    font-size: 20px;
+    width: 50%;
+  }
+
+  .learn-something-child-tab {
+    font-size: 10px;
+  }
+
+  .learn-something-child-tab-open {
+    font-size: 13px;
+  }
 }

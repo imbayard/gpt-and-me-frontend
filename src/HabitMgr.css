@@ -36,6 +36,7 @@
   flex-direction: column;
   border-right: 1px solid rgba(0, 0, 0, 0.3);
   min-height: 75vh;
+  padding-right: 2%;
 }
 
 .habit {
@@ -93,4 +94,19 @@
   align-items: center;
   flex-direction: column;
   min-height: 75vh;
+  padding-left: 4%;
+}
+
+@media only screen and (max-width: 399px) {
+  .habit-mgr h1 {
+    font-size: 20px;
+  }
+
+  .habit-mgr p {
+    font-size: small;
+  }
+
+  .habit {
+    border-radius: 0px;
+  }
 }

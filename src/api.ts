@@ -15,6 +15,8 @@ const host =
     ? process.env.REACT_APP_EC2_URL
     : 'http://localhost:3028'
 
+const withCredentials = ENVIRONMENT === 'prod' ? true : false
+
 const URLS = {
   learn_something: '/learn-something',
   child_learn_something: '/child-ls',
@@ -134,7 +136,7 @@ async function deleteRequest(url: string, body: any) {
   return await axios
     .delete(`${host}${url}`, {
       data: body,
-      withCredentials: true,
+      withCredentials,
       httpsAgent: {
         rejectUnauthorized: false,
       },
@@ -153,7 +155,7 @@ async function makePost(url: string, post_body: any) {
   console.log(`Making request: ${JSON.stringify(post_body)}`)
   return await axios
     .post(`${host}${url}`, post_body, {
-      withCredentials: true,
+      withCredentials,
       httpsAgent: {
         rejectUnauthorized: false,
       },
@@ -171,7 +173,7 @@ async function makePost(url: string, post_body: any) {
 async function getRequest(url: string) {
   return await axios
     .get(url, {
-      withCredentials: true,
+      withCredentials,
       httpsAgent: {
         rejectUnauthorized: false,
       },
