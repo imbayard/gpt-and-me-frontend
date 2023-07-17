@@ -115,9 +115,18 @@ export function SWOT({
 
     // Make API Call
     const response = await performSWOTAnalysis(type, answers[type] || [])
+    let isFull = false
     if (response) {
       // Refresh the responses and answers
       const { analysis, inputs } = await getSWOTAnalysisAndQuestions(email)
+      if (
+        analysis.opportunities &&
+        analysis.strengths &&
+        analysis.threats &&
+        analysis.weaknesses
+      ) {
+        isFull = true
+      }
       setAnswers({ ...answers, [type]: inputs[type] })
       setResponses(analysis)
     }
@@ -125,14 +134,7 @@ export function SWOT({
     // After submission, reset the hasChanges state for the specific type
     setHasChanges({ ...hasChanges, [type]: false })
     setIsLoading({ ...isLoading, [type]: false })
-    if (
-      isFirstTime &&
-      setHasDoneSWOT &&
-      responses.opportunities &&
-      responses.strengths &&
-      responses.weaknesses &&
-      responses.threats
-    ) {
+    if (isFirstTime && setHasDoneSWOT && isFull) {
       setHasDoneSWOT(true)
     }
   }
@@ -184,11 +186,6 @@ export function SWOT({
                 visible={isQAOpen[type] || false}
                 isLoading={isLoading[type] || false}
               />
-              {isLoading[type] ? (
-                <Loader message="Loading response..." />
-              ) : (
-                <></>
-              )}
             </div>
           )
         })}

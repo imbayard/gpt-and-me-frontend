@@ -52,17 +52,16 @@ export default function AppRoutes() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   useEffect(() => {
-    loadUserInfoFromLocalStorage()
     fetchUserDescriptors()
   }, [])
 
   async function fetchUserDescriptors() {
-    const user_summary = await getUserSummary(userInfo.email)
-    console.log('yeep')
+    const info = loadUserInfoFromLocalStorage()
+    const user_summary = await getUserSummary(info.email)
     console.log(user_summary)
     if (user_summary) {
       setHasDoneUserSummary(true)
-      const swot_anal = await getSWOTAnalysisAndQuestions(userInfo.email)
+      const swot_anal = await getSWOTAnalysisAndQuestions(info.email)
       console.log(swot_anal)
       if (swot_anal && swot_anal.analysis) setHasDoneSWOT(true)
     }
@@ -78,6 +77,7 @@ export default function AppRoutes() {
       const userInfo = JSON.parse(savedUserInfo)
       setGlobalUserInfo({ ...userInfo, handleLogout })
       setIsAuthenticated(userInfo.userId !== '')
+      return userInfo
     }
   }
 
@@ -164,6 +164,7 @@ export default function AppRoutes() {
                 element={
                   <SignIn
                     handleGlobalUserInfoChange={handleGlobalUserInfoChange}
+                    triggerRefresh={() => fetchUserDescriptors()}
                   />
                 }
               />

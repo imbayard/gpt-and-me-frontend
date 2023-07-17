@@ -10,7 +10,7 @@ const questionConfig: Record<SWOTType, string[]> = {
   weaknesses: [
     "What are 3 skills I'm greatly lacking in?",
     'What separates me from others?',
-    'What are 3 tasks or activities I struggle with consistently?',
+    "What are my 3 biggest 'failues'",
     'What negative feedback have I received?',
   ],
   opportunities: [

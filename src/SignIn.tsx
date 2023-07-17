@@ -8,8 +8,10 @@ import { UserContextModel } from './AppRoutes'
 
 export default function LogIn({
   handleGlobalUserInfoChange,
+  triggerRefresh,
 }: {
   handleGlobalUserInfoChange: (info: UserContextModel) => void
+  triggerRefresh: () => Promise<void>
 }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -61,7 +63,7 @@ export default function LogIn({
           placement: 'topRight',
           duration: 1.5,
           onClose: () => {
-            setRedirect(true)
+            triggerRefresh()
           },
         })
       })
