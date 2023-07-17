@@ -145,6 +145,7 @@ export function HabitMgr({ email }: { email: string }) {
             handleSubmit={(e) => handleSubmit(e)}
             title="New Habit"
             visible={isAddNewHabitFormOpen}
+            isLoading={isLoadingHabits}
           />
           <LoaderButton
             isLoading={isLoadingHabits}

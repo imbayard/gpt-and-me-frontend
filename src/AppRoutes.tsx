@@ -58,6 +58,7 @@ export default function AppRoutes() {
 
   async function fetchUserDescriptors() {
     const user_summary = await getUserSummary(userInfo.email)
+    console.log('yeep')
     console.log(user_summary)
     if (user_summary) {
       setHasDoneUserSummary(true)
@@ -130,7 +131,13 @@ export default function AppRoutes() {
                 <>
                   <Route
                     path="/"
-                    element={<SWOT email={userInfo.email} isFirstTime={true} />}
+                    element={
+                      <SWOT
+                        email={userInfo.email}
+                        isFirstTime={true}
+                        setHasDoneSWOT={(hasDone) => setHasDoneSWOT(hasDone)}
+                      />
+                    }
                   />
                 </>
               )
@@ -138,7 +145,15 @@ export default function AppRoutes() {
               <>
                 <Route
                   path="/"
-                  element={<WhoAmI email={userInfo.email} isFirstTime={true} />}
+                  element={
+                    <WhoAmI
+                      email={userInfo.email}
+                      isFirstTime={true}
+                      setHasDoneUserSummary={(hasDone) =>
+                        setHasDoneUserSummary(hasDone)
+                      }
+                    />
+                  }
                 />
               </>
             )

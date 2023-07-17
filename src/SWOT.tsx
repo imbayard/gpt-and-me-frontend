@@ -11,9 +11,11 @@ import { BigText } from './components/BigText'
 export function SWOT({
   email,
   isFirstTime,
+  setHasDoneSWOT,
 }: {
   email: string
   isFirstTime?: boolean
+  setHasDoneSWOT?: (value: React.SetStateAction<boolean>) => void
 }) {
   const [answers, setAnswers] = useState<SWOTObj<Question[]>>(questions)
   const [hasChanges, setHasChanges] = useState<SWOTObj<boolean>>({})
@@ -123,12 +125,36 @@ export function SWOT({
     // After submission, reset the hasChanges state for the specific type
     setHasChanges({ ...hasChanges, [type]: false })
     setIsLoading({ ...isLoading, [type]: false })
+    if (
+      isFirstTime &&
+      setHasDoneSWOT &&
+      responses.opportunities &&
+      responses.strengths &&
+      responses.weaknesses &&
+      responses.threats
+    ) {
+      setHasDoneSWOT(true)
+    }
   }
 
   return (
     <>
-      {isFirstTime && (
-        <BigText header="SWOT Analysis" body="Just a few more questions :)" />
+      {isFirstTime && setHasDoneSWOT && (
+        <>
+          <BigText header="SWOT Analysis" body="Just a few more questions :)" />
+          <div
+            style={{
+              cursor: 'pointer',
+              border: '1px solid black',
+              width: '20vw',
+              margin: 'auto',
+              textAlign: 'center',
+            }}
+            onClick={() => setHasDoneSWOT(true)}
+          >
+            Skip for now
+          </div>
+        </>
       )}
       <div className="SWOT">
         {swotTypes.map((type) => {
@@ -156,6 +182,7 @@ export function SWOT({
                 handleSubmit={(e) => handleSubmit(e, type)}
                 hasChanges={hasChanges[type] || false}
                 visible={isQAOpen[type] || false}
+                isLoading={isLoading[type] || false}
               />
               {isLoading[type] ? (
                 <Loader message="Loading response..." />

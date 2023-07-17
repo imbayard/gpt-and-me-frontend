@@ -5,13 +5,18 @@ import { Question } from './models'
 import { getUserSummary, getWhoAmI, submitWhoAmI } from './api'
 import { BigText } from './components/BigText'
 import { QandAForm } from './components/QandAForm'
+import { useNavigate } from 'react-router-dom'
 
-export const WhoAmI: React.FC<{ email: string; isFirstTime?: boolean }> = ({
-  email,
-  isFirstTime,
-}) => {
+export const WhoAmI: React.FC<{
+  email: string
+  isFirstTime?: boolean
+  setHasDoneUserSummary?: (value: React.SetStateAction<boolean>) => void
+}> = ({ email, isFirstTime, setHasDoneUserSummary }) => {
   const [formData, setFormData] = useState<Question[]>(questions)
   const [hasChanges, setHasChanges] = useState(false)
+  const [questionsOpen, setQuestionsOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
 
   const [userSummary, setUserSummary] = useState(undefined)
 
@@ -42,6 +47,7 @@ export const WhoAmI: React.FC<{ email: string; isFirstTime?: boolean }> = ({
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setIsLoading(true)
     console.log(formData)
     // Perform further actions with the form data, such as saving it to a database
     const userSummaryFetched = await submitWhoAmI({
@@ -50,7 +56,11 @@ export const WhoAmI: React.FC<{ email: string; isFirstTime?: boolean }> = ({
       email: email,
     })
     setUserSummary(userSummaryFetched)
+    if (isFirstTime && setHasDoneUserSummary) {
+      setHasDoneUserSummary(true)
+    }
     setHasChanges(false)
+    setIsLoading(false)
   }
 
   return (
@@ -61,14 +71,19 @@ export const WhoAmI: React.FC<{ email: string; isFirstTime?: boolean }> = ({
           body="Welcome! Please complete the questionnaire to get started."
         />
       )}
-      {userSummary && <BigText header="User Summary" body={userSummary} />}
+      {userSummary && (
+        <div onClick={() => setQuestionsOpen(!questionsOpen)}>
+          <BigText header="User Summary" body={userSummary} />
+        </div>
+      )}
       <QandAForm
         questions={formData}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
         title={'Questionnaire'}
         hasChanges={hasChanges}
-        visible={true}
+        visible={isFirstTime || questionsOpen}
+        isLoading={isLoading}
       />
     </div>
   )

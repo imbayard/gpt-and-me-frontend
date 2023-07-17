@@ -2,6 +2,7 @@ import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react'
 import { Question } from '../models'
 
 import './QandAForm.css'
+import Loader from './Loader'
 
 interface QandAFormProps {
   questions: Question[] | undefined
@@ -10,6 +11,7 @@ interface QandAFormProps {
   hasChanges: boolean
   title: string
   visible: boolean
+  isLoading: boolean
 }
 
 export const QandAForm: React.FC<QandAFormProps> = ({
@@ -19,6 +21,7 @@ export const QandAForm: React.FC<QandAFormProps> = ({
   hasChanges,
   title,
   visible,
+  isLoading,
 }) => {
   const [formData, setFormData] = useState<Question[]>(questions || [])
 
@@ -46,7 +49,11 @@ export const QandAForm: React.FC<QandAFormProps> = ({
           />
         </div>
       ))}
-      {hasChanges && <button type="submit">Save Changes</button>}
+      {hasChanges && isLoading ? (
+        <Loader message="Submitting" />
+      ) : (
+        <button type="submit">Save Changes</button>
+      )}
     </form>
   ) : (
     <></>
