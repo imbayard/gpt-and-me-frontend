@@ -34,7 +34,7 @@ export default function AppRoutes() {
     name: '',
     handleLogout,
   })
-  const [hasDoneUserSummary, setHasDoneUserSummary] = useState(true)
+  const [hasDoneUserSummary, setHasDoneUserSummary] = useState(false)
   const [hasDoneSWOT, setHasDoneSWOT] = useState(false)
 
   async function handleLogout() {
