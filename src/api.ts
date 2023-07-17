@@ -49,9 +49,14 @@ export async function getLearnSomethings(
 
 export async function generateChildLearnSOmething(
   seed: string,
-  id: string
+  id: string,
+  email: string
 ): Promise<boolean> {
-  return (await makePost(URLS.child_learn_something, { seed, id })) as boolean
+  return (await makePost(URLS.child_learn_something, {
+    seed,
+    id,
+    email,
+  })) as boolean
 }
 
 export async function deleteRootLearnSomething(id: string): Promise<boolean> {

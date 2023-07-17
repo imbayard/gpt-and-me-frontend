@@ -15,7 +15,7 @@ const TreeItem: React.FC<{
   async function handleGenerateSeed(child: string) {
     setIsLoadingNewSeed(true)
     console.log(child, rootId)
-    const didSucceed = await generateChildLearnSOmething(child, rootId)
+    const didSucceed = await generateChildLearnSOmething(child, rootId, email)
     if (didSucceed) {
       const ls = await getLearnSomethings(email)
       const root =
