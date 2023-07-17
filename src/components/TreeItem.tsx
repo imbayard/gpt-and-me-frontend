@@ -9,14 +9,15 @@ import { empty_learn_something } from '../lib/constants'
 const TreeItem: React.FC<{
   node: LearnSomething
   rootId: string
+  email: string
   setLearnSomething: React.Dispatch<React.SetStateAction<LearnSomething>>
-}> = ({ node, rootId, setLearnSomething }) => {
+}> = ({ node, rootId, setLearnSomething, email }) => {
   async function handleGenerateSeed(child: string) {
     setIsLoadingNewSeed(true)
     console.log(child, rootId)
     const didSucceed = await generateChildLearnSOmething(child, rootId)
     if (didSucceed) {
-      const ls = await getLearnSomethings()
+      const ls = await getLearnSomethings(email)
       const root =
         ls.find((root) => root._id === rootId) || empty_learn_something
       console.log(root)
@@ -90,6 +91,7 @@ const TreeItem: React.FC<{
               }
               rootId={rootId}
               setLearnSomething={(ls) => setLearnSomething(ls)}
+              email={email}
             />
           </div>
         )}

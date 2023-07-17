@@ -8,7 +8,7 @@ import './LearnSomethingRoot.css'
 import { BigText } from './components/BigText'
 import TreeItem from './components/TreeItem'
 
-export function LearnSomethingRoot() {
+export function LearnSomethingRoot({ email }: { email: string }) {
   const [root, setRoot] = useState<LearnSomething>(empty)
   const [openChild, setOpenChild] = useState<LearnSomething | undefined>(
     undefined
@@ -20,7 +20,7 @@ export function LearnSomethingRoot() {
 
   useEffect(() => {
     async function load() {
-      const ls_all: LearnSomething[] = await getLearnSomethings()
+      const ls_all: LearnSomething[] = await getLearnSomethings(email)
       const this_ls = ls_all ? ls_all.find((ls) => ls._id === id) : empty
       setRoot(this_ls || empty)
     }
@@ -79,6 +79,7 @@ export function LearnSomethingRoot() {
               }
               rootId={root._id || ''}
               setLearnSomething={(ls) => setRoot(ls)}
+              email={email}
             />
           </div>
         )}

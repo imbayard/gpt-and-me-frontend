@@ -6,7 +6,10 @@ import { getUserSummary, getWhoAmI, submitWhoAmI } from './api'
 import { BigText } from './components/BigText'
 import { QandAForm } from './components/QandAForm'
 
-export const WhoAmI: React.FC = () => {
+export const WhoAmI: React.FC<{ email: string; isFirstTime?: boolean }> = ({
+  email,
+  isFirstTime,
+}) => {
   const [formData, setFormData] = useState<Question[]>(questions)
   const [hasChanges, setHasChanges] = useState(false)
 
@@ -26,9 +29,9 @@ export const WhoAmI: React.FC = () => {
   useEffect(() => {
     async function loadPage() {
       try {
-        const userSummaryFetched = await getUserSummary('beton@bu.edu')
+        const userSummaryFetched = await getUserSummary(email)
         setUserSummary(userSummaryFetched)
-        const whoAmI = await getWhoAmI('beton@bu.edu')
+        const whoAmI = await getWhoAmI(email)
         if (whoAmI && whoAmI.questions) setFormData(whoAmI.questions)
       } catch (err) {
         console.log('An error occurred...', err)
@@ -44,7 +47,7 @@ export const WhoAmI: React.FC = () => {
     const userSummaryFetched = await submitWhoAmI({
       questions: formData,
       isComplete: false,
-      email: 'beton@bu.edu',
+      email: email,
     })
     setUserSummary(userSummaryFetched)
     setHasChanges(false)
@@ -52,6 +55,12 @@ export const WhoAmI: React.FC = () => {
 
   return (
     <div className="form-container">
+      {isFirstTime && (
+        <BigText
+          header="User Summary"
+          body="Welcome! Please complete the questionnaire to get started."
+        />
+      )}
       {userSummary && <BigText header="User Summary" body={userSummary} />}
       <QandAForm
         questions={formData}

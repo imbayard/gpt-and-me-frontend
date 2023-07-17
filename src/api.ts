@@ -32,13 +32,18 @@ const URLS = {
   fetch_habits: '/habit/fetch',
   journal: '/journal',
 }
-export async function learnSomethingNew(seed: string): Promise<LearnSomething> {
-  const response = await makePost(URLS.learn_something, { seed })
+export async function learnSomethingNew(
+  seed: string,
+  email: string
+): Promise<LearnSomething> {
+  const response = await makePost(URLS.learn_something, { seed, email })
   return response.data as LearnSomething
 }
 
-export async function getLearnSomethings(): Promise<LearnSomething[]> {
-  const response = await getRequest(`${host}${URLS.learn_something}`)
+export async function getLearnSomethings(
+  email: string
+): Promise<LearnSomething[]> {
+  const response = await getRequest(`${host}${URLS.learn_something}/${email}`)
   return response.data as LearnSomething[]
 }
 

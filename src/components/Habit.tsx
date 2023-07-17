@@ -11,6 +11,7 @@ interface HabitComponentProps {
   openHabit: string
   isTip: boolean
   setHabits: (value: React.SetStateAction<HabitModel[] | undefined>) => void
+  email: string
   id?: string
 }
 
@@ -20,11 +21,12 @@ export function Habit({
   openHabit,
   isTip,
   setHabits,
+  email,
   id,
 }: HabitComponentProps) {
   async function handleMoveHabit(habit: string) {
     await addNewHabit([{ question: '', value: habit, qid: 0 }])
-    const habits = await getHabits('beton@bu.edu')
+    const habits = await getHabits(email)
     setHabits(habits)
   }
 
@@ -32,7 +34,7 @@ export function Habit({
     if (id) {
       setIsDeleting(true)
       await deleteHabit(id)
-      const habits = await getHabits('beton@bu.edu')
+      const habits = await getHabits(email)
       setHabits(habits)
       setIsDeleting(false)
     }

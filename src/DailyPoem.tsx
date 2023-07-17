@@ -5,7 +5,7 @@ import { BigText } from './components/BigText'
 import './DailyPoem.css'
 import Loader from './components/Loader'
 
-export function DailyPoem() {
+export function DailyPoem({ email }: { email: string }) {
   const [poem, setPoem] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
@@ -17,7 +17,7 @@ export function DailyPoem() {
   useEffect(() => {
     async function fetchPoem() {
       setIsLoading(true)
-      const poem = await getUserSummaryPoem('beton@bu.edu')
+      const poem = await getUserSummaryPoem(email)
       setPoem(poem || 'No poem...')
       setIsLoading(false)
     }

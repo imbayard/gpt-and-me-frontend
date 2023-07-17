@@ -11,7 +11,7 @@ import {
 } from './api'
 import { URLS } from './lib/constants'
 
-export default function LearnSomethingComponent() {
+export default function LearnSomethingComponent({ email }: { email: string }) {
   const [isLearnSomethingNewOpen, setIsLearnSomethingNewOpen] = useState(false)
   const [newTopic, setNewTopic] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -22,7 +22,7 @@ export default function LearnSomethingComponent() {
 
   useEffect(() => {
     async function fetchLearnSomethings() {
-      const learnSomethings = await getLearnSomethings()
+      const learnSomethings = await getLearnSomethings(email)
       setLearnSomethingArray(learnSomethings)
     }
 
@@ -41,9 +41,9 @@ export default function LearnSomethingComponent() {
     e.preventDefault()
 
     setIsLoading(true)
-    const response = await learnSomethingNew(newTopic)
+    const response = await learnSomethingNew(newTopic, email)
     console.log('Response Received', response)
-    const all = await getLearnSomethings()
+    const all = await getLearnSomethings(email)
     setLearnSomethingArray(all)
     setIsLoading(false)
     setIsLearnSomethingNewOpen(false)
@@ -51,7 +51,7 @@ export default function LearnSomethingComponent() {
 
   async function handleDelete(rootId: string) {
     await deleteRootLearnSomething(rootId)
-    const all = await getLearnSomethings()
+    const all = await getLearnSomethings(email)
     setLearnSomethingArray(all)
     console.log(`deleted: ${rootId}`)
   }

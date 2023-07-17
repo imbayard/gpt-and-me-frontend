@@ -11,13 +11,13 @@ import { QandAForm } from './components/QandAForm'
 import { questions } from './lib/new-habit-questions'
 import { Habit as HabitModel } from './models'
 
-export function HabitMgr() {
+export function HabitMgr({ email }: { email: string }) {
   useEffect(() => {
     async function loadPage() {
-      const tip = await getHabitTip('beton@bu.edu')
+      const tip = await getHabitTip(email)
       setHabitTip({ habit_tip: tip })
 
-      const habits = await getHabits('beton@bu.edu')
+      const habits = await getHabits(email)
       setHabits(habits)
     }
     loadPage()
@@ -38,7 +38,7 @@ export function HabitMgr() {
 
   async function handleGenerateHabitTip() {
     setIsLoadingNewHabitTip(true)
-    const habit_tip_obj = await generateHabitTip('beton@bu.edu')
+    const habit_tip_obj = await generateHabitTip(email)
     setHabitTip(habit_tip_obj)
     setIsLoadingNewHabitTip(false)
   }
@@ -59,7 +59,7 @@ export function HabitMgr() {
     console.log(newHabitForm)
     setIsLoadingHabits(true)
     await addNewHabit(newHabitForm)
-    const all_habits = await getHabits('beton@bu.edu')
+    const all_habits = await getHabits(email)
     setHabits(all_habits)
     setIsLoadingHabits(false)
     setIsAddNewHabitFormOpen(false)
@@ -84,6 +84,7 @@ export function HabitMgr() {
               openHabit={openHabitTip}
               isTip={true}
               setHabits={(habits) => setHabits(habits)}
+              email={email}
             />
           )
         )
@@ -133,6 +134,7 @@ export function HabitMgr() {
                   isTip={false}
                   id={habit._id}
                   setHabits={(habits) => setHabits(habits)}
+                  email={email}
                 />
               )
             })}

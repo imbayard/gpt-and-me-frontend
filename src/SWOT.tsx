@@ -8,7 +8,13 @@ import { getSWOTAnalysisAndQuestions, performSWOTAnalysis } from './api'
 import './SWOT.css'
 import { BigText } from './components/BigText'
 
-export function SWOT() {
+export function SWOT({
+  email,
+  isFirstTime,
+}: {
+  email: string
+  isFirstTime?: boolean
+}) {
   const [answers, setAnswers] = useState<SWOTObj<Question[]>>(questions)
   const [hasChanges, setHasChanges] = useState<SWOTObj<boolean>>({})
   const [isLoading, setIsLoading] = useState<SWOTObj<boolean>>({})
@@ -28,9 +34,11 @@ export function SWOT() {
   ]
   useEffect(() => {
     async function loadPage() {
-      const { analysis, inputs } = await getSWOTAnalysisAndQuestions(
-        'beton@bu.edu'
-      )
+      const { analysis, inputs } = await getSWOTAnalysisAndQuestions(email)
+
+      if (!inputs) {
+        return
+      }
 
       const newResponses: SWOTObj<string> = {}
       const newAnswers: SWOTObj<Question[]> = {
@@ -107,9 +115,7 @@ export function SWOT() {
     const response = await performSWOTAnalysis(type, answers[type] || [])
     if (response) {
       // Refresh the responses and answers
-      const { analysis, inputs } = await getSWOTAnalysisAndQuestions(
-        'beton@bu.edu'
-      )
+      const { analysis, inputs } = await getSWOTAnalysisAndQuestions(email)
       setAnswers({ ...answers, [type]: inputs[type] })
       setResponses(analysis)
     }
@@ -120,37 +126,46 @@ export function SWOT() {
   }
 
   return (
-    <div className="SWOT">
-      {swotTypes.map((type) => {
-        return (
-          <div className="SorWorOorT-lol">
-            <div
-              className="big-text-wrapper"
-              onClick={() => {
-                console.log(isQAOpen[type])
-                setIsQAOpen({ ...isQAOpen, [type]: !isQAOpen[type] })
-              }}
-            >
-              {responses[type] && (
-                <BigText
-                  header={type.charAt(0).toUpperCase() + type.slice(1)}
-                  body={responses[type] || ''}
-                />
+    <>
+      {isFirstTime && (
+        <BigText header="SWOT Analysis" body="Just a few more questions :)" />
+      )}
+      <div className="SWOT">
+        {swotTypes.map((type) => {
+          return (
+            <div className="SorWorOorT-lol">
+              <div
+                className="big-text-wrapper"
+                onClick={() => {
+                  console.log(isQAOpen[type])
+                  setIsQAOpen({ ...isQAOpen, [type]: !isQAOpen[type] })
+                }}
+              >
+                {responses[type] && (
+                  <BigText
+                    header={type.charAt(0).toUpperCase() + type.slice(1)}
+                    body={responses[type] || ''}
+                  />
+                )}
+              </div>
+              <QandAForm
+                key={type}
+                questions={answers[type] || questions[type]}
+                title={type.charAt(0).toUpperCase() + type.slice(1)}
+                handleChange={(e, qid) => handleChange(e, qid, type)}
+                handleSubmit={(e) => handleSubmit(e, type)}
+                hasChanges={hasChanges[type] || false}
+                visible={isQAOpen[type] || false}
+              />
+              {isLoading[type] ? (
+                <Loader message="Loading response..." />
+              ) : (
+                <></>
               )}
             </div>
-            <QandAForm
-              key={type}
-              questions={answers[type] || questions[type]}
-              title={type.charAt(0).toUpperCase() + type.slice(1)}
-              handleChange={(e, qid) => handleChange(e, qid, type)}
-              handleSubmit={(e) => handleSubmit(e, type)}
-              hasChanges={hasChanges[type] || false}
-              visible={isQAOpen[type] || false}
-            />
-            {isLoading[type] ? <Loader message="Loading response..." /> : <></>}
-          </div>
-        )
-      })}
-    </div>
+          )
+        })}
+      </div>
+    </>
   )
 }

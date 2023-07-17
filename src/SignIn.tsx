@@ -139,7 +139,7 @@ export default function LogIn({
 
   return !isSettingNew ? (
     <div>
-      <form>
+      <form className="sign-on-form">
         <h1>Log In</h1>
         <label htmlFor="email">Email</label>
         <input
@@ -172,7 +172,7 @@ export default function LogIn({
     </div>
   ) : (
     <div>
-      <form>
+      <form className="sign-on-form">
         <h1>Welcome!</h1>
         <label htmlFor="newPassword">Updated Password</label>
         <input

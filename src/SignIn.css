@@ -3,7 +3,7 @@ body {
   background-color: #f7f7f7;
 }
 
-form {
+.sign-on-form {
   max-width: 400px;
   margin: 0 auto;
   padding: 2%;
@@ -45,7 +45,7 @@ input[type='submit']:hover {
 }
 
 @media only screen and (max-width: 399px) {
-  form {
+  .sign-on-form {
     max-width: 80vw;
     overflow: scroll;
   }

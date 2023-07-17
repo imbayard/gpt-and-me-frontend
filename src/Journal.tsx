@@ -8,7 +8,7 @@ import { URLS } from './lib/constants'
 import { LoaderButton } from './components/Loader'
 import { BigText } from './components/BigText'
 
-export default function Journal() {
+export default function Journal({ email }: { email: string }) {
   const [habits, setHabits] = useState<Habit[]>([])
   const [journalEntry, setJournalEntry] = useState('')
   const [hasChanged, setHasChanged] = useState(false)
@@ -17,7 +17,7 @@ export default function Journal() {
 
   useEffect(() => {
     async function loadPage() {
-      const fetched_habits = await getHabits('beton@bu.edu')
+      const fetched_habits = await getHabits(email)
       setHabits(fetched_habits)
     }
     loadPage()
@@ -30,7 +30,7 @@ export default function Journal() {
 
   async function handleSubmit() {
     setIsLoading(true)
-    const response = await submitJournalEntry(journalEntry, 'beton@bu.edu')
+    const response = await submitJournalEntry(journalEntry, email)
     setFeedback(response)
     setIsLoading(false)
     setHasChanged(false)

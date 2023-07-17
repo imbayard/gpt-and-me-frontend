@@ -11,6 +11,7 @@ import { HabitMgr } from './HabitMgr'
 import { LearnSomethingRoot } from './LearnSomethingRoot'
 import SignIn from './SignIn'
 import { container } from './lib/container'
+import { getSWOTAnalysisAndQuestions, getUserSummary } from './api'
 
 export const UserContext = createContext({
   userId: '',
@@ -33,6 +34,8 @@ export default function AppRoutes() {
     name: '',
     handleLogout,
   })
+  const [hasDoneUserSummary, setHasDoneUserSummary] = useState(true)
+  const [hasDoneSWOT, setHasDoneSWOT] = useState(false)
 
   async function handleLogout() {
     await container.auth.signOut()
@@ -50,7 +53,19 @@ export default function AppRoutes() {
 
   useEffect(() => {
     loadUserInfoFromLocalStorage()
+    fetchUserDescriptors()
   }, [])
+
+  async function fetchUserDescriptors() {
+    const user_summary = await getUserSummary(userInfo.email)
+    console.log(user_summary)
+    if (user_summary) {
+      setHasDoneUserSummary(true)
+      const swot_anal = await getSWOTAnalysisAndQuestions(userInfo.email)
+      console.log(swot_anal)
+      if (swot_anal && swot_anal.analysis) setHasDoneSWOT(true)
+    }
+  }
 
   function saveUserInfoToLocalStorage(info: UserContextModel) {
     localStorage.setItem('userInfo', JSON.stringify(info))
@@ -82,18 +97,51 @@ export default function AppRoutes() {
         <Header />
         <Routes>
           {isAuthenticated ? (
-            <>
-              <Route path="/" element={<App />} />
-              <Route path={URLS.JOURNAL} element={<Journal />} />
-              <Route path={URLS.LEARN} element={<LearnSomethingComponent />} />
-              <Route
-                path={`${URLS.LEARN}/:id`}
-                element={<LearnSomethingRoot />}
-              />
-              <Route path={URLS.WHO} element={<WhoAmI />} />
-              <Route path={URLS.SWOT} element={<SWOT />} />
-              <Route path={URLS.GOALS} element={<HabitMgr />} />
-            </>
+            hasDoneUserSummary ? (
+              hasDoneSWOT ? (
+                <>
+                  <Route path="/" element={<App />} />
+                  <Route
+                    path={URLS.JOURNAL}
+                    element={<Journal email={userInfo.email} />}
+                  />
+                  <Route
+                    path={URLS.LEARN}
+                    element={<LearnSomethingComponent email={userInfo.email} />}
+                  />
+                  <Route
+                    path={`${URLS.LEARN}/:id`}
+                    element={<LearnSomethingRoot email={userInfo.email} />}
+                  />
+                  <Route
+                    path={URLS.WHO}
+                    element={<WhoAmI email={userInfo.email} />}
+                  />
+                  <Route
+                    path={URLS.SWOT}
+                    element={<SWOT email={userInfo.email} />}
+                  />
+                  <Route
+                    path={URLS.GOALS}
+                    element={<HabitMgr email={userInfo.email} />}
+                  />
+                </>
+              ) : (
+                <>
+                  <Route
+                    path="/"
+                    element={<SWOT email={userInfo.email} isFirstTime={true} />}
+                  />
+                </>
+              )
+            ) : (
+              <>
+                <Route
+                  path="/"
+                  element={<WhoAmI email={userInfo.email} isFirstTime={true} />}
+                />
+              </>
+            )
           ) : (
             <>
               <Route
