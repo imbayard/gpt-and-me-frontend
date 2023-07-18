@@ -1,5 +1,10 @@
 import React, { useState, createContext, useEffect } from 'react'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useNavigate,
+} from 'react-router-dom'
 import { App } from './App'
 import Header from './components/Header'
 import { URLS } from './lib/constants'
@@ -160,7 +165,7 @@ export default function AppRoutes() {
           ) : (
             <>
               <Route
-                path="/"
+                path="/*"
                 element={
                   <SignIn
                     handleGlobalUserInfoChange={handleGlobalUserInfoChange}

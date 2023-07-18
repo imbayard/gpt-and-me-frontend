@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './SignIn.css'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { notification } from 'antd'
 import { container } from './lib/container'
 import { LoaderButton } from './components/Loader'
@@ -13,6 +13,7 @@ export default function LogIn({
   handleGlobalUserInfoChange: (info: UserContextModel) => void
   triggerRefresh: () => Promise<void>
 }) {
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setIsLoading] = useState(false)
@@ -126,6 +127,7 @@ export default function LogIn({
           email: user.attributes.email,
           name: user.attributes.given_name,
         })
+        navigate('/')
       } catch (error) {
         notification.error({
           message: 'Error',
