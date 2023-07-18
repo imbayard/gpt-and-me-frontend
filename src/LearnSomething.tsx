@@ -106,7 +106,7 @@ export default function LearnSomethingComponent({ email }: { email: string }) {
             />
           </label>
           {isLoading ? (
-            <Loader message={'Getting Feedback...'} />
+            <Loader message={'Creating Subject...'} />
           ) : (
             <button className="learn-drawer-button" type="submit">
               Submit

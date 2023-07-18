@@ -15,8 +15,7 @@ export default function LogIn({
 }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [redirect, setRedirect] = useState(false)
+  const [loading, setIsLoading] = useState(false)
 
   const [isSettingNew, setIsSettingNew] = useState(false)
   const [newPassword, setNewPassword] = useState('')
@@ -34,7 +33,7 @@ export default function LogIn({
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=!])(?!.*\s).{8,}$/
 
   async function handleSubmit() {
-    setLoading(true)
+    setIsLoading(true)
 
     container.auth
       .signIn(email, password)
@@ -46,7 +45,7 @@ export default function LogIn({
           const { requiredAttributes } = response.challengeParam
           console.log(requiredAttributes)
           setCognitoUser(response)
-          setLoading(false)
+          setIsLoading(false)
           setIsSettingNew(true)
         } else {
           handleGlobalUserInfoChange({
@@ -75,7 +74,7 @@ export default function LogIn({
           placement: 'topRight',
           duration: 1.5,
         })
-        setLoading(false)
+        setIsLoading(false)
       })
   }
 
@@ -94,7 +93,7 @@ export default function LogIn({
   const handleConfirmPasswordChange = (newConfirmPassword: string) => {
     setConfirmNewPassword(newConfirmPassword)
 
-    if (newConfirmPassword !== password) {
+    if (newConfirmPassword !== newPassword) {
       setConfirmPasswordError('Passwords do not match.')
     } else {
       setConfirmPasswordError(undefined)
@@ -102,7 +101,8 @@ export default function LogIn({
   }
 
   const handleNewPasswordSubmit = async () => {
-    setLoading(true)
+    setIsLoading(true)
+    console.log(confirmPasswordError, passwordError)
     if (confirmPasswordError || passwordError) {
       notification.error({
         message: 'Error',
@@ -110,32 +110,31 @@ export default function LogIn({
         placement: 'topRight',
         duration: 2,
       })
-      setLoading(false)
-      return
-    }
-    try {
-      const user = await container.auth.completeNewPassword(
-        cognitoUser,
-        newPassword,
-        {
-          given_name: name,
-        }
-      )
-      console.log(user)
-      handleGlobalUserInfoChange({
-        userId: user.attributes.sub,
-        email: user.attributes.email,
-        name: user.attributes.given_name,
-      })
-    } catch (error) {
-      console.log(error)
-      notification.error({
-        message: 'Error',
-        description: 'Error updating password',
-        placement: 'topRight',
-        duration: 1.5,
-      })
-      setLoading(false)
+      setIsLoading(false)
+    } else {
+      console.log('Submitting new password for', name)
+      try {
+        const user = await container.auth.completeNewPassword(
+          cognitoUser,
+          newPassword,
+          {
+            given_name: name,
+          }
+        )
+        handleGlobalUserInfoChange({
+          userId: user.attributes.sub,
+          email: user.attributes.email,
+          name: user.attributes.given_name,
+        })
+      } catch (error) {
+        notification.error({
+          message: 'Error',
+          description: 'Error updating password',
+          placement: 'topRight',
+          duration: 1.5,
+        })
+        setIsLoading(false)
+      }
     }
   }
 
@@ -170,7 +169,6 @@ export default function LogIn({
           <></>
         )}
       </form>
-      {redirect && <Navigate to="/" />}
     </div>
   ) : (
     <div>

@@ -43,7 +43,7 @@ export async function learnSomethingNew(
 export async function getLearnSomethings(
   email: string
 ): Promise<LearnSomething[]> {
-  const response = await getRequest(`${host}${URLS.learn_something}/${email}`)
+  const response = await makePost(`${URLS.learn_something}/fetch`, { email })
   return response.data as LearnSomething[]
 }
 
