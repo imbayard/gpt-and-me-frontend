@@ -13,7 +13,7 @@ const ENVIRONMENT = process.env.REACT_APP_ENVIRONMENT || 'prod'
 const host =
   ENVIRONMENT === 'prod'
     ? process.env.REACT_APP_EC2_URL
-    : 'http://localhost:3028'
+    : 'http://localhost:443'
 
 const withCredentials = ENVIRONMENT === 'prod' ? true : false
 

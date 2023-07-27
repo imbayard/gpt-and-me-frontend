@@ -53,7 +53,7 @@ export const WhoAmI: React.FC<{
     const userSummaryFetched = await submitWhoAmI({
       questions: formData,
       isComplete: false,
-      email: email,
+      email,
     })
     setUserSummary(userSummaryFetched)
     if (isFirstTime && setHasDoneUserSummary) {
